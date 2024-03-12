@@ -14,7 +14,7 @@ function AdminLogin() {
     console.log(mobileno , password);
     e.preventDefault();
 
-    axios.post("http://89.116.32.12:800/api/swalook/login/",{
+    axios.post("http://89.116.32.12:8000/api/swalook/login/",{
       mobileno: mobileno,
       password: password
     })
