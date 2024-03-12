@@ -118,6 +118,7 @@ class vendor_login(CreateAPIView):
 
 class VendorServices(APIView):
     permission_classes = [IsAuthenticated]
+    
     def get(self,request):
         queryset = Vendor_Service.objects.filter(user=request.user).order_by('service')
         serialized_data = service_name_serializer(queryset,many=True)
