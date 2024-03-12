@@ -21,7 +21,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
 from _api_.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('update_file/', update_files_pull.as_view()),
+    
     # path('swalook_token_ii091/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # path('swalook_token_ii091/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
    
