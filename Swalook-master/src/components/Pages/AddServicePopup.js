@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState , useEffect} from 'react';
 import '../Styles/AddServicePopup.css';
 import axios from 'axios';
 
@@ -6,16 +6,21 @@ function AddServicePopup({ onClose }) {
   const [service , setService] = useState('');
   const [service_price , setServicePrice] = useState('');
   const [service_duration , setServiceDuration] = useState('');
-
+  
   const handleAddService = (e) => {
     e.preventDefault();
     console.log(service , service_price , service_duration);
     const token = localStorage.getItem('token');
    
-    axios.post("https://zggwtvrk-8000.inc1.devtunnels.ms/api/swalook/add/services/",{
+    axios.post("http://89.116.32.12:8000/api/swalook/add/services/",{
       service: service,
       service_price: service_price,
       service_duration: service_duration
+    },{
+      headers:{
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json'
+      }
     }).then((res) => {    
       console.log(res.data);
       console.log("service added");

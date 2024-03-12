@@ -23,7 +23,7 @@ function AdminLogin() {
       if(res.data.text === 'login successfull !'){
         navigate('/admin/dashboard');
       }
-      const token = res.data.csrf_token; 
+      const token = res.data.token; 
       localStorage.setItem('token', token);
       console.log(res.data);
     }).catch((err) => {

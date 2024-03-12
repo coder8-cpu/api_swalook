@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState , useEffect} from 'react'
 import '../Styles/DeleteServicePopup.css'
 import Multiselect from 'multiselect-react-dropdown';
 
@@ -8,10 +8,13 @@ function DeleteServicePopup({onClose}) {
     { key: 'service1', value: 'Service 1' },
     { key: 'service2', value: 'Service 2' }
   ];
+
   const handleSelect = (selectedList) => {
     setDeleteSelectedServices(selectedList);
     console.log(deleteSelectedServices);
   };
+
+  
   return (
     <div className='DS_overlay'>
         <div className='DS_container'>

@@ -1,4 +1,5 @@
-import React , {useState} from 'react'
+import React , {useState , useEffect} from 'react'
+import axios from 'axios'
 import '../Styles/ServiceDetails.css'
 import Header from './Header'
 import AddServicePopup from './AddServicePopup';
@@ -7,6 +8,24 @@ import DeleteServicePopup from './DeleteServicePopup';
 function ServiceDetails() {
     const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
     const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+    const [fetchService , setFetchService] = useState([]);
+   
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      axios.get("http://89.116.32.12:8000/api/swalook/table/services/",{
+        headers:{
+          'Authorization': `Token ${token}`,
+          'Content-Type': 'application/json'
+        }     
+      })
+      .then((res)=>{
+        console.log(res.data.table_data);
+        setFetchService(res.data.table_data);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    },[]);
 
   const AddtogglePopup = () => {
     setIsAddPopupOpen(!isAddPopupOpen);
@@ -39,7 +58,13 @@ function ServiceDetails() {
             </tr>
           </thead>
           <tbody>
-            {/* Add table rows here */}
+          {fetchService.length > 0 && fetchService.map((ser) => (
+    <tr key={ser.id}>
+      <td>{ser.service}</td>
+      <td>{ser.service_duration}</td>
+      <td>{ser.service_price}</td>
+    </tr>
+  ))}
           </tbody>
         </table>
       </div>
