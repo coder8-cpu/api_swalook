@@ -388,7 +388,7 @@ class showendpoint(APIView):
 import subprocess
 
 class update_files_pull(APIView):
-
+    parser_classes = [AllowAny]
     def get(request):
         # Replace '/path/to/your/command' with the actual command you want to run
         command = ['/root/api_swalook/git pull']
