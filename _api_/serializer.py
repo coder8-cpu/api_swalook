@@ -121,10 +121,11 @@ class appointment_serializer(serializers.ModelSerializer):
     class Meta:
         model = VendorAppointment
  
-        fields = ["id","customer_name","mobile_no","email","services","booking_date","booking_time","status_pending","status_canceled","status_completed","date"]
+        fields = ["id","customer_name","mobile_no","email","services","booking_date","booking_time",]
         extra_kwargs = {'id':{'read_only':True},}
     def create(self,validated_data):
         validated_data['vendor_name'] = self.context.get('request').user
+        validated_data['date'] = dt.date.today()
         return super().create(validated_data)
     
 class update_appointment_serializer(serializers.Serializer):
@@ -180,7 +181,7 @@ class service_update_serializer(serializers.ModelSerializer):
 class service_name_serializer(serializers.ModelSerializer):
     class Meta:
         model = Vendor_Service
-        fields = ["service",]
+        fields = ["id","service",]
 
 class staff_serializer(serializers.ModelSerializer):
     class Meta:
