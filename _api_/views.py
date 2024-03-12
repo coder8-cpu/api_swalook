@@ -76,7 +76,7 @@ class vendor_update_profile(APIView):
 class vendor_login(CreateAPIView):
 
     serializer_class = login_serializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     def post(self,request):
         ''' deserialization of register user'''
         serializer_objects           = login_serializer(request.data)                 # convertion of request.data into python native datatype
