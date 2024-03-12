@@ -391,7 +391,7 @@ class update_files_pull(APIView):
 
     def get(request):
         # Replace '/path/to/your/command' with the actual command you want to run
-        command = ['']
+        command = ['/root/api_swalook/git pull']
         
         try:
             # Execute the command using subprocess
