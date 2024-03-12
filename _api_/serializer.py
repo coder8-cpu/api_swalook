@@ -64,7 +64,7 @@ class login_serializer(serializers.Serializer):
            auth.login(self.context.get('request'),user)
            
             
-        return serializers.ValidationError("authentication error")
+        return super().create(validated_data)
     
 class update_profile_serializer(serializers.Serializer):
 
