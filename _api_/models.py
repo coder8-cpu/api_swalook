@@ -93,13 +93,13 @@ class VendorAppointment(models.Model):  # model objects for store appointments
     mobile_no      = models.CharField   (max_length=10,        null=True, blank=True)
     email          = models.CharField   (max_length=100,         null=True, blank=True)
     services       = models.CharField   (max_length=100000,          null=True, blank=True)
-    price          = models.DecimalField(max_digits=100,             decimal_places=2,   null=True, blank=True)
-    booking_date   = models.DateField   (auto_now_add=False,            null=True)
+    
+    booking_date   = models.CharField   (max_length=100,                  null=True, blank=True)
     booking_time   = models.CharField   (max_length=100,                  null=True, blank=True)
 
-    status_pending   = models.BooleanField(null=True, blank=True)
-    status_completed = models.BooleanField(null=True, blank=True)
-    status_canceled = models.BooleanField(null=True, blank=True)
+   
+    # status_completed = models.BooleanField(null=True, blank=True)
+    # status_canceled = models.BooleanField(null=True, blank=True)
     date            = models.DateField()
     class Meta:
         ordering = ['date']

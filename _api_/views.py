@@ -118,6 +118,7 @@ class vendor_login(CreateAPIView):
 
 class VendorServices(APIView):
     permission_classes = [IsAuthenticated]
+    
     def get(self,request):
         queryset = Vendor_Service.objects.filter(user=request.user).order_by('service')
         serialized_data = service_name_serializer(queryset,many=True)
@@ -125,7 +126,7 @@ class VendorServices(APIView):
         return Response({
                 'status':True,                                                      # corresponding to ---> 'key:value' for access data
                 'code':302,
-                'service_names':serialized_data.data
+                'service':serialized_data.data
                 
 
             },)
@@ -264,10 +265,15 @@ class VendorAppointments(CreateAPIView,ListAPIView,):
             serializer.save()                                                       # the create method of serializer call here 
             ''' returning the status and info as response'''
             return Response({
-            "status":True,
+                "status":True,
             
 
-        })
+            })
+        return Response({
+            "status":False,
+            
+
+            })
     
     def list(self,request):
         query_set = VendorAppointment.objects.filter(vendor_name=request.user)
