@@ -389,7 +389,7 @@ import subprocess
 
 class update_files_pull(APIView):
     permission_classes = [AllowAny]
-    def get(request):
+    def get(self,request):
         # Replace '/path/to/your/command' with the actual command you want to run
         command = ['/root/api_swalook/git pull']
         
