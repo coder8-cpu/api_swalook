@@ -94,12 +94,12 @@ class VendorAppointment(models.Model):  # model objects for store appointments
     email          = models.CharField   (max_length=100,         null=True, blank=True)
     services       = models.CharField   (max_length=100000,          null=True, blank=True)
     
-    booking_date   = models.DateField   (auto_now_add=False,            null=True)
+    booking_date   = models.CharField   (max_length=100,                  null=True, blank=True)
     booking_time   = models.CharField   (max_length=100,                  null=True, blank=True)
 
    
-    status_completed = models.BooleanField(null=True, blank=True)
-    status_canceled = models.BooleanField(null=True, blank=True)
+    # status_completed = models.BooleanField(null=True, blank=True)
+    # status_canceled = models.BooleanField(null=True, blank=True)
     date            = models.DateField()
     class Meta:
         ordering = ['date']
