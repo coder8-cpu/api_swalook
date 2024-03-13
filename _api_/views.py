@@ -268,6 +268,11 @@ class VendorAppointments(CreateAPIView,ListAPIView,):
             
 
             })
+        return Response({
+            "status":False,
+            
+
+            })
     
     def list(self,request):
         query_set = VendorAppointment.objects.filter(vendor_name=request.user)

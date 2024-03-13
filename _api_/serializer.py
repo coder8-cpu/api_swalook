@@ -121,7 +121,7 @@ class appointment_serializer(serializers.ModelSerializer):
     class Meta:
         model = VendorAppointment
  
-        fields = ["id","customer_name","mobile_no","email","services","booking_date","booking_time","status_pending","status_canceled","status_completed",]
+        fields = ["id","customer_name","mobile_no","email","services","booking_date","booking_time","status_canceled","status_completed",]
         extra_kwargs = {'id':{'read_only':True},}
     def create(self,validated_data):
         validated_data['vendor_name'] = self.context.get('request').user
