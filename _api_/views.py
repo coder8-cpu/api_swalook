@@ -391,11 +391,12 @@ class update_files_pull(APIView):
     permission_classes = [AllowAny]
     def get(self,request):
         # Replace '/path/to/your/command' with the actual command you want to run
-        command = ['/root/api_swalook/git pull']
+     
         
         try:
             # Execute the command using subprocess
-            result = subprocess.run(command, capture_output=True, text=True, check=True)
+            
+            result = subprocess.run("git pull", capture_output=True, text=True, check=True)
             output = result.stdout
         except subprocess.CalledProcessError as e:
             # Handle any errors that occur during command execution
