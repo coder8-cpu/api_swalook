@@ -1,0 +1,107 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.gb_horizontal{
+    height: 90vh;
+    display: flex;
+}
+
+.gb_h1{
+    flex: 0 0 70px; 
+    background-color: white; 
+}
+
+.gb_h2{
+    flex: 1; 
+    display: flex;
+    background-color: #f1f1f1; 
+    justify-content: space-around;
+    height: 100vh;
+}
+
+.gb_left{
+    margin-top: 20px;
+    width: 45%; 
+    height: 90vh;
+}
+
+.GI{
+    margin-top: 10px;
+    text-align: center;
+    color: #091A44;
+}
+
+.gb_hr{
+    margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.gb_input-field {
+    width: 50%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px;
+  }
+  
+  
+  .gbform-group {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .gbform-group label {
+    margin-left: 10px;
+    margin-top: 12px;
+    margin-right: 10px;
+    text-align: center;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .gb_select-field-cont{
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 50%;
+  }
+
+  .sb{
+    margin-left: 10px;
+  margin-top: 10px;
+  color: #091A44;
+  display: flex;
+  text-align: left;
+  text-decoration: underline;   
+  }
+
+  .gb_btn_contain{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .gb_button {
+    margin-top: 20px;
+    width: 40%;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #091A44;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .gb_button:hover {
+    background-color: #0b2158;
+  }
+
+.invoice_img{
+    width: 35vw;
+    margin-top: 30px;
+}

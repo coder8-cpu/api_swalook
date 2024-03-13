@@ -1,0 +1,34 @@
+.vert_nav_main_c{
+    height: 300px;
+    display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     margin-top: 25vh;
+     background-color: #091A44;
+     border-top-right-radius: 20px; 
+     border-bottom-right-radius: 20px;
+}
+
+.icon-container {
+    position: relative;
+    margin-bottom: 10px;
+  }
+  
+  .icon-text {
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 10px);
+    transform: translateY(-50%);
+    opacity: 0;
+    color: white;
+    background-color: transparent;
+    padding: 5px; 
+    transition: opacity 0.3s, background-color 0.3s; 
+  }
+  
+  .icon-container:hover .icon-text {
+    border-radius: 5px;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.76);
+  }

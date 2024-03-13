@@ -1,0 +1,89 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.personal_information_container{
+    background-color: white;
+    width: 100vw;
+    height: 100vh;
+}
+
+.pi_main {
+    padding: 20px;
+  }
+
+.pi_horizontal_container {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .pi_horizontal_item {
+    width: 48%; 
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .pi_horizontal_item img {
+    margin-top: 10px;
+    width: 60%;
+    display: block; 
+    margin: 0 auto; 
+  }
+
+  .pi_horizontal_item h2 {
+    margin-bottom: 10px;
+    color: #091A44;
+  }
+
+ .pi_input_container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.pi_input_container label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.pi_input_container input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 10px;
+  font-size: 16px;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.pi_input_container input:focus {
+  outline: none;
+  border-color: #007bff; /* Change color on focus */
+}
+
+.pi_up_container {
+
+  margin-top: 20px;
+}
+
+.pi_update_button  {
+    background-color: transparent; 
+    color: #091A44; 
+    border: 2px solid #091A44; 
+    padding: 8px 16px; 
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px;
+  }
+  
+  .pi_update_button:hover {
+    background-color: #091A44; 
+    color: white; 
+  }
+  
+  .pi_update_button:focus {
+    outline: none; 
+  }

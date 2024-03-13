@@ -1,0 +1,157 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.horizontal-container {
+    height: 100vh;
+    display: flex;
+  }
+  
+.vertical-navigation {
+    flex: 0 0 70px; 
+    background-color: white; 
+}
+
+.main-content {  
+    flex: 1; 
+    background-color: #f1f1f1; 
+}
+
+.content-header {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .content-header h2 {
+    margin: 0;
+  }
+  
+  .content-header input[type="text"] {
+    padding: 20px; 
+    border: none; 
+    border-radius: 20px;
+    background-color: #f0f0f0; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    outline: none; 
+    width: 500px; 
+  }
+  
+  .content-header input[type="text"]:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .content-header input[type="text"]:focus {
+    background-color: #fff; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+  }
+
+  .US_search-bar {
+    display: flex;
+    align-items: center;
+  }
+
+  .US_search-icon {
+    margin-left: 10px;
+  }
+
+  .content-body {
+    padding: 10px;
+    display: flex;
+  }
+
+  .content-box {
+    flex: 1; 
+    background-color: #fff; 
+    border-radius: 10px; 
+    padding: 20px;
+    margin-right: 20px; 
+    height: 50vh;
+  }
+
+  .US-con {
+    max-height: 40vh; 
+    overflow-y: auto; 
+  }
+  
+  .content-box:last-child {
+    margin-right: 0; 
+  }
+
+  .sales_img {
+    max-width: 100%; 
+    height: auto;
+    display: block; 
+    margin-top: 20px; 
+  }
+
+  .content-box table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .content-box th,
+  .content-box td {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .content-box th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  .content-box tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .content-box tbody tr:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .content-box th:last-child,
+  .content-box td:last-child {
+    border-right: none;
+  }
+
+  .content-footer {
+    margin-left: 10px;
+    width: 98.5%;
+    background-color: #fff; 
+    border-radius: 10px;
+    padding: 20px; 
+    height: 30vh;
+  }
+
+  .search-Billing{
+    width: 20vw;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  .f_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .billing_search-bar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .billing_search-icon {
+    margin-left: 10px;
+  }
+  
+  
