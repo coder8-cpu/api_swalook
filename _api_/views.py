@@ -125,7 +125,7 @@ class VendorServices(APIView):
         return Response({
                 'status':True,                                                      # corresponding to ---> 'key:value' for access data
                 'code':302,
-                'service_names':serialized_data.data
+                'service':serialized_data.data
                 
 
             },)
