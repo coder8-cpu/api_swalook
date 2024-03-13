@@ -62,9 +62,10 @@ class login_serializer(serializers.Serializer):
         user = auth.authenticate(username=validated_data['mobileno'],password=validated_data['password'])
         if user is not None:
            auth.login(self.context.get('request'),user)
-           
-            
-        return super().create(validated_data)
+       
+
+
+        return "ok!"
     
 class update_profile_serializer(serializers.Serializer):
 
