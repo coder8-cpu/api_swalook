@@ -91,12 +91,22 @@ WSGI_APPLICATION = 'api_swalook.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'Cluster0',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': 'mongodb+srv://swalook:!!M8KZW8a#Ed8bS@cluster0.avi2k5f.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+            'username': 'swalook',
+            'password': '!!M8KZW8a#Ed8bS',
+            'authSource': 'admin',
+            'authMechanism': 'SCRAM-SHA-1',
+        }
     }
 }
+
 
 
 # Password validation
