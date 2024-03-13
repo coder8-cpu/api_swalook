@@ -4,10 +4,29 @@ import Multiselect from 'multiselect-react-dropdown';
 
 function DeleteServicePopup({onClose}) { 
   const [deleteSelectedServices, setDeleteSelectedServices] = useState([]);
-  const serviceOptions = [
-    { key: 'service1', value: 'Service 1' },
-    { key: 'service2', value: 'Service 2' }
-  ];
+  const [serviceOptions, setServiceOptions] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    fetch("http://89.116.32.12:8000/api/swalook/table/services/",{
+      headers:{
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((res)=>{
+      return res.json();
+    })
+    .then((data)=>{
+      console.log(data.table_data);
+      setServiceOptions(data.table_data.map((service) => {
+        return {key: service.id, value: service.service}
+      }));
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  },[]);
 
   const handleSelect = (selectedList) => {
     setDeleteSelectedServices(selectedList);
