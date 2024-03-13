@@ -403,3 +403,32 @@ class update_files_pull(APIView):
         return Response({
             "server updated" : output,
         })
+    
+class restart_server(APIView):
+    permission_classes = [AllowAny]
+    def get(self,request):
+        # Replace '/path/to/your/command' with the actual command you want to run
+        command = ['npm','run','build']
+        command2 = ['PORT=80','serve','-s','build']
+        
+
+        
+        try:
+            # Execute the command using subprocess
+            result = subprocess.run(command, capture_output=True, text=True, check=True)
+            output = result.stdout
+            result_ = subprocess.run(command, capture_output=True, text=True, check=True)
+            output_ = result_.stdout
+            return Response({
+            "server build status" : output,
+            "server running" : output_,
+            "status": True,
+            })
+        except subprocess.CalledProcessError as e:
+            # Handle any errors that occur during command execution
+            output = f"Error: {e.stderr}"
+            return Response({
+            "error":output,
+            "status": False,
+            })
+       
