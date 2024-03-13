@@ -264,7 +264,7 @@ class VendorAppointments(CreateAPIView,ListAPIView,):
             serializer.save()                                                       # the create method of serializer call here 
             ''' returning the status and info as response'''
             return Response({
-            "status":True,
+                "status":True,
             
 
             })
