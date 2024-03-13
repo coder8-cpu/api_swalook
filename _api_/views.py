@@ -14,7 +14,7 @@ import requests
 from .serializer import *
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
-
+import os
 
 class VendorSignin(CreateAPIView):
 
@@ -408,6 +408,7 @@ class restart_server(APIView):
     permission_classes = [AllowAny]
     def get(self,request):
         # Replace '/path/to/your/command' with the actual command you want to run
+        os.chdir("/root/api_swalook/Swalook-master/")
         command = ['npm','run','build']
         command2 = ['PORT=80','serve','-s','build']
         
