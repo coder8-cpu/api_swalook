@@ -181,7 +181,7 @@ class service_update_serializer(serializers.ModelSerializer):
 class service_name_serializer(serializers.ModelSerializer):
     class Meta:
         model = Vendor_Service
-        fields = ["service",]
+        fields = ["id","service",]
 
 class staff_serializer(serializers.ModelSerializer):
     class Meta:
