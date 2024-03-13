@@ -15,6 +15,7 @@ from .serializer import *
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 import os
+import datetime as dt
 
 class VendorSignin(CreateAPIView):
 
@@ -288,7 +289,7 @@ class VendorAppointments(CreateAPIView,ListAPIView,):
 class edit_appointment(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = update_appointment_serializer
-    def create(self,request,id):
+    def post(self,request):
         serializer_objects           = self.serializer_class(request.data)                 # convertion of request.data into python native datatype
         json_data                    = JSONRenderer().render(serializer_objects.data)      # rendering the data into json
         stream_data_over_network     = io.BytesIO(json_data)                                 # streaming the data into bytes
@@ -305,10 +306,10 @@ class edit_appointment(CreateAPIView):
         queryset.services =         accept_json_stream.get('services')
         queryset.booking_time =     accept_json_stream.get('booking_time')
         queryset.booking_date =     accept_json_stream.get('booking_date')
-        queryset.status_pending    = accept_json_stream.get('status_pending')
-        queryset.status_completed =  accept_json_stream.get('status_completed')
-        queryset.status_canceled  =  accept_json_stream.get('status_cancelled')
-        queryset.date =             accept_json_stream.get('date')
+        # queryset.status_pending    = accept_json_stream.get('status_pending')
+        # queryset.status_completed =  accept_json_stream.get('status_completed')
+        # queryset.status_canceled  =  accept_json_stream.get('status_cancelled')
+        queryset.date =  dt.date.today()
         queryset.vendor_name = request.user
         queryset.save()  
 
