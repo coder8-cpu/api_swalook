@@ -135,10 +135,10 @@ class update_appointment_serializer(serializers.Serializer):
     services       = serializers.CharField()
     booking_date   = serializers.DateField()
     booking_time   = serializers.DateField()
-    status_pending = serializers.BooleanField()
-    status_completed = serializers.BooleanField()
-    status_cancelled = serializers.BooleanField()
-    date           = serializers.DateField()
+    # status_pending = serializers.BooleanField()
+    # status_completed = serializers.BooleanField()
+    # status_cancelled = serializers.BooleanField()
+    # date           = serializers.DateField()
 
     
     

@@ -15,6 +15,7 @@ from .serializer import *
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 import os
+import datetime as dt
 
 class VendorSignin(CreateAPIView):
 
@@ -305,10 +306,10 @@ class edit_appointment(CreateAPIView):
         queryset.services =         accept_json_stream.get('services')
         queryset.booking_time =     accept_json_stream.get('booking_time')
         queryset.booking_date =     accept_json_stream.get('booking_date')
-        queryset.status_pending    = accept_json_stream.get('status_pending')
-        queryset.status_completed =  accept_json_stream.get('status_completed')
-        queryset.status_canceled  =  accept_json_stream.get('status_cancelled')
-        queryset.date =             accept_json_stream.get('date')
+        # queryset.status_pending    = accept_json_stream.get('status_pending')
+        # queryset.status_completed =  accept_json_stream.get('status_completed')
+        # queryset.status_canceled  =  accept_json_stream.get('status_cancelled')
+        queryset.date =  dt.date.today()
         queryset.vendor_name = request.user
         queryset.save()  
 
