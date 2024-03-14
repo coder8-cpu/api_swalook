@@ -296,9 +296,9 @@ class edit_appointment(CreateAPIView):
         accept_json_stream           = JSONParser().parse(stream_data_over_network)            # prases json data types data
         ''' passing the json stream data into serializer '''
     
-        queryset = VendorAppointment.objects.filter(id=id)
-        if queryset.exists():
-            queryset.delete()
+        queryset = VendorAppointment.objects.get(id=id)
+        
+        queryset.delete()
         queryset = VendorAppointment()
         queryset.customer_name = accept_json_stream.get('customer_name')
         queryset.mobile_no =        accept_json_stream.get('mobile_no')
