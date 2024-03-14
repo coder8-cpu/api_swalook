@@ -289,7 +289,7 @@ class VendorAppointments(CreateAPIView,ListAPIView,):
 class edit_appointment(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = update_appointment_serializer
-    def post(self,request):
+    def post(self,request,id):
         serializer_objects           = self.serializer_class(request.data)                 # convertion of request.data into python native datatype
         json_data                    = JSONRenderer().render(serializer_objects.data)      # rendering the data into json
         stream_data_over_network     = io.BytesIO(json_data)                                 # streaming the data into bytes
