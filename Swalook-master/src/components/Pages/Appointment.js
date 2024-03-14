@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState , useEffect} from 'react'
+import axios from 'axios';
 import Multiselect from 'multiselect-react-dropdown';
 import '../Styles/Appointment.css'
 import Header from './Header'
@@ -13,18 +14,61 @@ function getCurrentDate() {
 }
 
 function Appointment() {
-
   const currentDate = getCurrentDate();
   const [AppointselectedServices, AppointsetSelectedServices] = useState([]);
+  const [services, setServices] = useState([]);
+  const [serviceOptions, setServiceOptions] = useState([]);
+  const [customer_name, setCustomerName] = useState('');
+  const [mobile_no , setMobileNo] = useState('');
+  const [email , setEmail] = useState('');
+  const booking_date = currentDate;
+  const [booking_time, setBookingTime] = useState('');
 
-  const serviceOptions = [
-    { key: 'service2', value: 'Service 2' },
-    { key: 'service3', value: 'key 3' }
-  ];
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    fetch("http://89.116.32.12:8000/api/swalook/table/services/",{
+      headers:{
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((res)=>{
+      return res.json();
+    })
+    .then((data)=>{
+      console.log(data.table_data);
+      setServiceOptions(data.table_data.map((service) => {
+        return {key: service.id, value: service.service}
+      }));
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  },[]);
 
   const handleSelect = (selectedList) => {
     AppointsetSelectedServices(selectedList);
   };
+
+  const handleTimeChange = (event) => {
+    const { id, value } = event.target;
+
+    // Update the booking_time state based on the id of the select element
+    switch (id) {
+      case 'hours':
+        setBookingTime(prevTime => `${value}:${prevTime.split(':')[1] || '00'} ${prevTime.split(' ')[1] || 'AM'}`);
+        break;
+      case 'minutes':
+        setBookingTime(prevTime => `${prevTime.split(':')[0] || '12'}:${value} ${prevTime.split(' ')[1] || 'AM'}`);
+        break;
+      case 'am_pm':
+        setBookingTime(prevTime => `${prevTime.split(':')[0] || '12'}:${prevTime.split(':')[1] || '00'} ${value}`);
+        break;
+      default:
+        break;
+    }
+  };
+
 
   return (
     <div className='appoint_dash_main'>
@@ -70,20 +114,20 @@ function Appointment() {
               </div>
               <div className="schedule_time-selection">
                 <label htmlFor="hours" className="schedule_time-label">Time:</label>
-                <select id="hours" className="schedule_time-dropdown">
+                <select id="hours" className="schedule_time-dropdown" onChange={handleTimeChange}>
                   <option value="" disabled selected>Hours</option>
                   {[...Array(12).keys()].map(hour => (
                     <option key={hour + 1} value={hour + 1}>{hour + 1}</option>
                   ))}
                 </select>
-                <select id="minutes" className="schedule_time-dropdown">
+                <select id="minutes" className="schedule_time-dropdown" onChange={handleTimeChange}>
                   <option value="" disabled selected>Minutes</option>
                   <option value="00">00</option>
                   <option value="15">15</option>
                   <option value="30">30</option>
                   <option value="45">45</option>
                 </select>
-                <select id="am_pm" className="schedule_time-dropdown">
+                <select id="am_pm" className="schedule_time-dropdown" onChange={handleTimeChange}>
                   <option value="" disabled selected>AM/PM</option>
                   <option value="AM">AM</option>
                   <option value="PM">PM</option>
@@ -92,6 +136,7 @@ function Appointment() {
               <div className="appoint-button-container">
               <button className="appoint_submit-button">Submit</button>
               </div>
+              <p>{booking_time}</p>
         </div>
         <div class='appoint_right'>
         <h2 className='h_appoint'>Booked Appointments</h2>
