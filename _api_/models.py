@@ -126,6 +126,14 @@ class VendorStaff(models.Model):
         return str(self.staff_name)
 
 
+class book_store(models.Model):
+    id = models.UUIDField(default=uuid.uuid4,primary_key=True,  editable=False)
+    image =  models.FileField(upload_to="book")
+
+    def __str__(self) -> str:
+        return str(self.image)
+
+
 
 
 
