@@ -22,6 +22,7 @@ function AdminLogin() {
     .then((res) => {
       if(res.data.text === 'login successfull !'){
         navigate('/admin/dashboard');
+        alert('login successfull !');
       }
       const token = res.data.token; 
       localStorage.setItem('token', token);

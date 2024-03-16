@@ -14,12 +14,12 @@
   }
   
   .invoice_main {
-    width: 70vw; /* 80% of viewport width */
+    width: 80vw; /* 80% of viewport width */
     height: 100vh; /* Full viewport height */
     background-color: #ffffff; /* White background color */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
     position: relative;
-    
+    max-width: 80vw;
   }
 
   .invoice_hr{
@@ -97,6 +97,8 @@
   }
   
   .table-responsive{
+    width: 100%; /* Make the container full width */
+    overflow-x: auto;
     margin-top: 20px;
   }
 
@@ -105,6 +107,7 @@
     border-collapse: collapse;
     border-spacing: 0;
     margin-bottom: 20px;
+    border-spacing: 0;
   }
   
   .invoice_table td,
@@ -213,6 +216,7 @@
     outline: none;
     width: 100%;
     height: 100%;
+    padding: 5px 10px;
     text-align: center;
     background-color: white;
   }
@@ -246,4 +250,6 @@
   .generate-button:hover {
     background-color: #e0b13c; /* Change button color on hover */
   }
+  
+
   

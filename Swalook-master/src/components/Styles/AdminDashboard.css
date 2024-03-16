@@ -153,5 +153,57 @@
   .billing_search-icon {
     margin-left: 10px;
   }
+
+  .BT-con {
+    max-height: 20vh;
+    overflow-y: auto;
+  }
+
+  .BT-con table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .BT-con th,
+  .BT-con td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .BT-con th {
+    background-color: #f2f2f2;
+  }
+  
+  .BT-con tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .BT-con tr:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .BT-con td:last-child {
+    text-align: center;
+  }
+  
+  .BT-con th,
+  .BT-con td:first-child,
+  .BT-con td:last-child {
+    border-right: none;
+  }
+  
+  .BT-con th:first-child,
+  .BT-con td:first-child {
+    border-left: none;
+  }
+  
+  @media (max-width: 768px) {
+    .BT-con table {
+      font-size: 14px;
+    }
+  }
   
   

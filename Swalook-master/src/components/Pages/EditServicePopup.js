@@ -1,0 +1,75 @@
+import React, { useState } from 'react';
+import '../Styles/EditServicePopup.css';
+import axios from 'axios';
+
+function EditServicePopup({ onClose, serviceData }) {
+    const [serviceDuration, setServiceDuration] = useState('');
+    const [servicePrice, setServicePrice] = useState('');
+
+    console.log(serviceData);
+    console.log(serviceData.id);
+    console.log(serviceData.serviceName);
+
+    // Function to handle saving the edited service
+    const handleSaveService = (e) => {
+        e.preventDefault();
+        
+        // Prepare the data for the POST request
+        const token = localStorage.getItem('token');
+        const data = {
+            service: serviceData.serviceName, // Original service name
+            service_price: servicePrice, // Updated service price
+            service_duration: serviceDuration // Updated service duration
+        };
+
+        // Perform the POST request
+        axios.post(`http://89.116.32.12:8000/api/swalook/edit/services/${serviceData.id}/`, data, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((res) => {
+            console.log(res.data);
+            console.log("Service edited");
+            alert("Service edited successfully!");
+            onClose(); // Close the popup after successful editing
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    };
+
+    return (
+        <div className="popup_overlay">
+            <div className="popup_container">
+                <div className="popup_header">
+                    <div className='pph3'>
+                        <h3>Edit Service</h3>
+                    </div>
+                    <button className="close_button" onClick={onClose}>X</button>
+                </div>
+                <hr></hr>
+                <form onSubmit={handleSaveService}> {/* Add onSubmit event handler */}
+                    <div className="sn1">
+                        <label htmlFor="service_name">Service Name:</label>
+                        <input type="text" id="service_name" name="service_name" placeholder='Service Name' value={serviceData.serviceName} readOnly />
+                    </div>
+                    <div className="sn2">
+                        <label htmlFor="duration">Duration:</label>
+                        <input type="text" id="duration" name="duration" placeholder="Duration (min)"  onChange={(e) => setServiceDuration(e.target.value)} />
+                    </div>
+                    <div className="sn3">
+                        <label htmlFor="price">Price:</label>
+                        <input type="text" id="price" name="price" placeholder="Price" onChange={(e) => setServicePrice(e.target.value)} />
+                    </div>
+                    <div className="sn_button_container">
+                        <button type="submit" className="sn_save_button">Save</button> {/* Change button type to submit */}
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+}
+
+export default EditServicePopup;
