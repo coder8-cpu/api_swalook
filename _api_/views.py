@@ -289,16 +289,16 @@ class VendorAppointments(CreateAPIView,ListAPIView,):
 class edit_appointment(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = update_appointment_serializer
-    def post(self,request):
+    def post(self,request,id):
         serializer_objects           = self.serializer_class(request.data)                 # convertion of request.data into python native datatype
         json_data                    = JSONRenderer().render(serializer_objects.data)      # rendering the data into json
         stream_data_over_network     = io.BytesIO(json_data)                                 # streaming the data into bytes
         accept_json_stream           = JSONParser().parse(stream_data_over_network)            # prases json data types data
         ''' passing the json stream data into serializer '''
     
-        queryset = VendorAppointment.objects.filter(id=id)
-        if queryset.exists():
-            queryset.delete()
+        queryset = VendorAppointment.objects.get(id=id)
+        
+        queryset.delete()
         queryset = VendorAppointment()
         queryset.customer_name = accept_json_stream.get('customer_name')
         queryset.mobile_no =        accept_json_stream.get('mobile_no')
