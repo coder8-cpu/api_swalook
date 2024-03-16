@@ -1,53 +1,103 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import Header from './Header.js';
 import '../../components/Styles/AdminDashboard.css';
 import SearchIcon from '@mui/icons-material/Search';
 import VertNav from './VertNav.js';
 
 function AdminDashboard() {
-
-  const [data, setData] = useState([
-    { Name: 'John Doe', Date: '2024-02-28', ServiceTaken: 'Service A', MobileNo: '123-456-7890' },
-    { Name: 'kohn', Date: '2024-02-28', ServiceTaken: 'Service A', MobileNo: '123-456-7890' },
-  ]);
-
+  const [originalData, setOriginalData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
+  const [orginalBillData, setOriginalBillData] = useState([]);
+  const [filteredBillData, setFilteredBillData] = useState([]);
+  const [searchBillTerm, setSearchBillTerm] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    axios.get("http://89.116.32.12:8000/api/swalook/appointment/", {
+      headers: {
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((res) => {
+        console.log(res.data);
+        setOriginalData(res.data.table_data);
+        setFilteredData(res.data.table_data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+    const searchTerm = event.target.value;
+    setSearchTerm(searchTerm);
+    const filteredRows = originalData.filter(row =>
+      row.customer_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.booking_date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.services.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.mobile_no.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredData(filteredRows);
   };
 
-  const filteredRows = data.filter(row =>
-    row.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    row.Date.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    row.ServiceTaken.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    row.MobileNo.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    axios.get("http://89.116.32.12:8000/api/swalook/billing/", {
+      headers: {
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((res) => {
+        console.log(res.data);
+        setOriginalBillData(res.data.table_data);
+        setFilteredBillData(res.data.table_data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const handleBillSearchChange = (event) => {
+    const searchBillTerm = event.target.value;
+    setSearchBillTerm(searchBillTerm);
+    const filteredBillRows = orginalBillData.filter(row =>
+      row.customer_name.toLowerCase().includes(searchBillTerm.toLowerCase()) ||
+      row.mobile_no.toLowerCase().includes(searchBillTerm.toLowerCase()) ||
+      row.grand_total.toLowerCase().includes(searchBillTerm.toLowerCase()) ||
+      row.services.toLowerCase().includes(searchBillTerm.toLowerCase())
+    );
+    setFilteredBillData(filteredBillRows);
+  }
+
 
   return (
     <div className='Admin_dash_main'>
       <Header />
       <div className='horizontal-container'>
         <div className='vertical-navigation'>
-        <div className='ver_nav'>
-          <VertNav />
-        </div>
-
-        </div>
-        <div className='main-content'>
-        <div className="content-header">
-          <h1>Welcome Admin!</h1>
-          <div className="US_search-bar">
-            <input
-              type="text"
-              placeholder="Upcoming Appointments...."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-            <SearchIcon className="US_search-icon" />
+          <div className='ver_nav'>
+            <VertNav />
           </div>
         </div>
-
+        <div className='main-content'>
+          <div className="content-header">
+            <h1>Welcome Admin!</h1>
+            <div className="US_search-bar">
+              <input
+                type="text"
+                placeholder="Upcoming Appointments...."
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
+              <SearchIcon className="US_search-icon" />
+            </div>
+          </div>
 
           <div className="content-body">
             <div className="content-box">
@@ -55,26 +105,26 @@ function AdminDashboard() {
               <img className='sales_img' src="path_to_your_image.jpg" alt="Sales Graph" />
             </div>
             <div className="content-box">
-              <h3>User Service</h3>
+              <h3>Appointments</h3>
               <div className='US-con'>
                 <table>
                   <thead>
                     <tr>
                       <th>Name</th>
                       <th>Date</th>
-                      <th>Service Taken</th>
+                      <th>Services</th>
                       <th>Mobile No</th>
                       <th>Edit</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredRows.map((row, index) => (
-                      <tr key={index}>
-                        <td>{row.Name}</td>
-                        <td>{row.Date}</td>
-                        <td>{row.ServiceTaken}</td>
-                        <td>{row.MobileNo}</td>
-                        <td></td>
+                    {filteredData.map((row) => (
+                      <tr key={row.id}>
+                        <td>{row.customer_name}</td>
+                        <td>{row.booking_date}</td>
+                        <td>{row.services}</td>
+                        <td>{row.mobile_no}</td>
+                        <td><button className='edit_button'>Edit</button></td>
                       </tr>
                     ))}
                   </tbody>
@@ -84,19 +134,44 @@ function AdminDashboard() {
           </div>
 
           <div className="content-footer">
-          <div className="f_top">
+            <div className="f_top">
+              <Link to="/generatebill">
               <h3>Billing Table</h3>
+              </Link>
               <div className="billing_search-bar">
                 <input
                   type="text"
                   placeholder="Search Billing..."
                   className="search-Billing"
+                  value={searchBillTerm}
+                  onChange={handleBillSearchChange}
                 />
                 <SearchIcon className="billing_search-icon" />
               </div>
             </div>
             <div className='BT-con'>
-
+            <table>
+                <thead>
+                  <tr>
+                    <th>Customer Name</th>
+                    <th>Mobile No</th>
+                    <th>Billing Amount</th>
+                    <th>Date</th>
+                    <th>Services</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredBillData.map((row) => (
+                    <tr key={row.id}>
+                      <td>{row.customer_name}</td>
+                      <td>{row.mobile_no}</td>
+                      <td>{row.grand_total}</td>
+                      <td>14/4/23</td>
+                      <td>{row.services}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

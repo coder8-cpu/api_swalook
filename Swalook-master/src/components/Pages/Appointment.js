@@ -15,7 +15,6 @@ function getCurrentDate() {
 
 function Appointment() {
   const currentDate = getCurrentDate();
-  const [AppointselectedServices, AppointsetSelectedServices] = useState([]);
   const [services, setServices] = useState([]);
   const [serviceOptions, setServiceOptions] = useState([]);
   const [customer_name, setCustomerName] = useState('');
@@ -23,6 +22,8 @@ function Appointment() {
   const [email , setEmail] = useState('');
   const booking_date = currentDate;
   const [booking_time, setBookingTime] = useState('');
+  const [selectedAMPM, setSelectedAMPM] = useState('');
+  const [getPresetDayAppointment, setGetPresetDayAppointment] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -38,7 +39,7 @@ function Appointment() {
     .then((data)=>{
       console.log(data.table_data);
       setServiceOptions(data.table_data.map((service) => {
-        return {key: service.id, value: service.service}
+        return { value: service.service}
       }));
     })
     .catch((err)=>{
@@ -47,29 +48,88 @@ function Appointment() {
   },[]);
 
   const handleSelect = (selectedList) => {
-    AppointsetSelectedServices(selectedList);
+    setServices(selectedList);
   };
+
+  // const handleTimeChange = (event) => {
+  //   const { id, value } = event.target;
+
+  //   switch (id) {
+  //     case 'hours':
+  //       setBookingTime(prevTime => `${value}:${prevTime.split(':')[1] || '00'} ${prevTime.split(' ')[1] || 'AM'}`);
+  //       break;
+  //     case 'minutes':
+  //       setBookingTime(prevTime => `${prevTime.split(':')[0] || '12'}:${value} ${prevTime.split(' ')[1] || 'AM'}`);
+  //       break;
+  //     case 'am_pm':
+  //       setBookingTime(prevTime => `${prevTime.split(':')[0] || '12'}:${prevTime.split(':')[1] || '00'} ${value}`);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
   const handleTimeChange = (event) => {
     const { id, value } = event.target;
 
-    // Update the booking_time state based on the id of the select element
     switch (id) {
       case 'hours':
-        setBookingTime(prevTime => `${value}:${prevTime.split(':')[1] || '00'} ${prevTime.split(' ')[1] || 'AM'}`);
+        setBookingTime(prevTime => `${value || ''}:${prevTime.split(':')[1] || '00'} ${selectedAMPM}`);
         break;
       case 'minutes':
-        setBookingTime(prevTime => `${prevTime.split(':')[0] || '12'}:${value} ${prevTime.split(' ')[1] || 'AM'}`);
+        setBookingTime(prevTime => `${prevTime.split(':')[0] || ''}:${value || '00'} ${selectedAMPM}`);
         break;
       case 'am_pm':
-        setBookingTime(prevTime => `${prevTime.split(':')[0] || '12'}:${prevTime.split(':')[1] || '00'} ${value}`);
+        setSelectedAMPM(value || '');
+        setBookingTime(prevTime => `${prevTime.split(':')[0] || ''}:${prevTime.split(':')[1] || '00'} ${value || ''}`);
         break;
       default:
         break;
     }
   };
 
+  const handleAddAppointment = (e) => {
+    e.preventDefault();
+    console.log(customer_name, mobile_no, email, booking_date, booking_time, services);
+    const token = localStorage.getItem('token');
+    axios.post("http://89.116.32.12:8000/api/swalook/appointment/",{
+      customer_name: customer_name,
+      mobile_no: mobile_no,
+      email: email,
+      services: services.map(service => service.value).toString(),
+      booking_time: booking_time,
+      booking_date: booking_date
+    },{
+      headers:{
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json'
+      }
+    }).then((res) => {
+      console.log(res.data);
+      alert("Appointment added successfully!");
+      console.log("appointment added");
+    }).catch((err) => {
+      console.log(err);
+      alert("Failed to add appointment!");
+    })
+  }
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    axios.get("http://89.116.32.12:8000/api/swalook/preset-day-appointment/", {
+      headers: {
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((res) => {
+        console.log(res.data.table_data);
+        setGetPresetDayAppointment(res.data.table_data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div className='appoint_dash_main'>
       <Header />
@@ -81,20 +141,21 @@ function Appointment() {
       </div>
       <div class='appoint_h2'>
         <div class='appoint_left'>
+        <form onSubmit={handleAddAppointment}>
         <h2 className='h_appoint'>Book Appointment</h2>
         <hr className='appoint_hr'/>
         <h3 className='cd'>Customer Details</h3>
         <div className="appointform-group">
                 <label htmlFor="name">Name:</label>
-                <input type="text" id="name" className="appoint_input-field" placeholder='Enter Full Name'/>
+                <input type="text" id="name" className="appoint_input-field" placeholder='Enter Full Name' required  onChange={(e)=> setCustomerName(e.target.value)}/>
         </div>
         <div className="appointform-group">
                 <label htmlFor="email">Email:</label>
-                <input type="email" id="email" className="appoint_input-field" placeholder='Enter Email Address'/>
+                <input type="email" id="email" className="appoint_input-field" placeholder='Enter Email Address' onChange={(e)=>setEmail(e.target.value)}/>
         </div>
         <div className="appointform-group">
                 <label htmlFor="phone">Phone:</label>
-                <input type="number" id="phone" className="appoint_input-field" placeholder='Enter Mobile Number' />
+                <input type="number" id="phone" className="appoint_input-field" placeholder='Enter Mobile Number' required onChange={(e)=>setMobileNo(e.target.value )}/>
         </div>
         <h3 className='sts'>Select the Service</h3>
         <div className='appoint_select-field-cont'>
@@ -102,9 +163,11 @@ function Appointment() {
               options={serviceOptions}
               showSearch={true}
               onSelect={handleSelect}
+              onRemove={handleSelect}
               displayValue="value"
               placeholder="Select Services...."
               className="appoint_select-field"
+              showCheckbox={true}
             />
             </div>
         <h3 className='sch'>Schedule</h3>
@@ -136,10 +199,10 @@ function Appointment() {
               <div className="appoint-button-container">
               <button className="appoint_submit-button">Submit</button>
               </div>
-              <p>{booking_time}</p>
+              </form>
         </div>
         <div class='appoint_right'>
-        <h2 className='h_appoint'>Booked Appointments</h2>
+        <h2 className='h_appoint'>Booked Appointments:({currentDate})</h2>
         <hr className='appoint_hr'/>
         <div class='appoint_table_wrapper'>
         <table class='appoint_table'>
@@ -153,14 +216,25 @@ function Appointment() {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td>123-456-7890</td>
-                    <td>10:00 AM</td>
-                    <td>Haircut</td>
-                    <td>Confirmed</td>
-                </tr>
-               
+                {getPresetDayAppointment.map((row) => (
+                    <tr key={row.id}>
+                        <td>{row.customer_name}</td>
+                        <td>{row.mobile_no}</td>
+                        <td>{row.booking_time}</td>
+                        <td>{row.services}</td>
+                        <td>
+                          <select
+                            className="status-dropdown"
+                            // value={row.status}
+                            // onChange={(e) => handleStatusChange(e, row.id)}
+                          >
+                            <option value="pending" selected>Pending</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                          </select>
+                        </td>
+                    </tr>
+                ))}     
             </tbody>
         </table>
     </div>
@@ -171,4 +245,4 @@ function Appointment() {
   )
 }
 
-export default Appointment
+export default Appointment;

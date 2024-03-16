@@ -24,8 +24,10 @@ function AddServicePopup({ onClose }) {
     }).then((res) => {    
       console.log(res.data);
       console.log("service added");
-
-    }).catch((err) => {
+      alert("Service added successfully!");
+      onClose();
+    })
+    .catch((err) => {
       console.log(err);
     })
   }
