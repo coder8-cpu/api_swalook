@@ -441,30 +441,3 @@ class restart_server(APIView):
             "status": False,
             })
 
-from rest_framework.parsers import MultiPartParser,FileUploadParser
-
-
-class read_books(APIView):
-    permission_classes = [AllowAny]
-
-    def post(self,request):
-      
-        file = request.FILES.get('image')
-        b = book_store()
-        b.image = file
-        b.save()
-
-
-
-       
-           
-        abc = os.popen(f"C:/Users/pc/Desktop/env/bb/dist/bengali_ocr/tesseract -l ben  C:/Users/pc/Desktop/env/api_swalook/{b.image.url}  C:/Users/pc/Desktop/env/api_swalook/media/page")
-        
-        return Response({
-            "text-file-path":"https://zggwtvrk-8000.inc1.devtunnels.ms/media/page.txt",
-        })
-    def get(self,request):
-
-        return render(request,"read_book.html")
-
-    

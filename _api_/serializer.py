@@ -188,13 +188,3 @@ class staff_serializer(serializers.ModelSerializer):
         model = VendorStaff
         fields = ["staff_name","billing_permission","is_user_staff","mobile_no","password","appointment_permission"]
 
-class book(serializers.ModelSerializer):
-
-    class Meta:
-       model =  book_store
-       fields = ["image"]
-
-    def create(self,validated_data):
-        validated_data['image'] = self.context.get('request').FILES.get('image')
-        return super().create(validated_data)
-    
