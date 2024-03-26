@@ -16,6 +16,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 import os
 import datetime as dt
+from django.shortcuts import render
 
 class VendorSignin(CreateAPIView):
 
@@ -295,7 +296,7 @@ class edit_appointment(CreateAPIView):
         stream_data_over_network     = io.BytesIO(json_data)                                 # streaming the data into bytes
         accept_json_stream           = JSONParser().parse(stream_data_over_network)            # prases json data types data
         ''' passing the json stream data into serializer '''
-    
+
         queryset = VendorAppointment.objects.get(id=id)
         
         queryset.delete()
@@ -439,4 +440,4 @@ class restart_server(APIView):
             "error":output,
             "status": False,
             })
-       
+
