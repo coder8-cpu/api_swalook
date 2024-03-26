@@ -1,20 +1,55 @@
 import React, { useEffect, useState , useRef} from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useReactToPrint } from "react-to-print";
 import '../Styles/Invoice.css';
 import l from '../../assets/SwaLookL.png';
 import numberToWords from '../Pages/NumberToWords';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import Popup from './Popup';
 
 function Invoice() {
-  const componentRef = useRef();
+  // const componentRef = useRef();
   
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-    documentTitle: false,
-    pageStyle: "@page { size: A4 potrait; margin: 0mm; }",
-    onAfterPrint: () => alert("Print success!"),
-  });
+  // const handlePrint = useReactToPrint({
+  //   content: () => componentRef.current,
+  //   documentTitle: false,
+  //   pageStyle: "@page { size: A4 potrait; margin: 20mm; }",
+  //   overflowStyle: "overflow-x: auto",
+  //   onAfterPrint: () => alert("Print success!"),
+  // });
+
+  const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false); 
+  const [popupMessage, setPopupMessage] = useState('');
+
+ 
+  const handlePrint = () => {
+    const capture = document.querySelector('.invoice_main');
+    const margin = 10; // Adjust margin size as needed
+    const pageWidth = 300; // A4 page width in mm
+    const increasedWidth = pageWidth + (2 * margin); // Increased width with margins
+  
+    html2canvas(capture).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', [increasedWidth, 297]); // [width, height]
+      const componentWidth = pdf.internal.pageSize.getWidth();
+      const componentHeight = pdf.internal.pageSize.getHeight();
+  
+      // Calculate position and size with margins
+      const posX = margin;
+      const posY = margin;
+      const imgWidth = componentWidth - (2 * margin);
+      const imgHeight = componentHeight - (2 * margin);
+  
+      pdf.addImage(imgData, 'PNG', posX, posY, imgWidth, imgHeight);
+      pdf.save('download.pdf');
+    });
+  };
+  
+ 
   
   const location = useLocation();
   const getCurrentDate = () => {
@@ -224,24 +259,29 @@ useEffect(() => {
     })
       .then(response => {
         // Handle success
+        setPopupMessage('Invoice generated successfully');
+        setShowPopup(true);
         console.log('Invoice generated successfully:', response.data);
-        alert('Invoice generated successfully');
+        // alert('Invoice generated successfully');
       })
 
       .catch(error => {
         // Handle error
+        setPopupMessage('Error generating invoice');
+        setShowPopup(true);
         console.error('Error generating invoice:', error);
       });
   };
 
   return (
     <div className='invoice_container'>
-      <div ref={componentRef} className='invoice_main'>
+      <div  className='invoice_main'>
+        <form onSubmit={handleGenerateInvoice}>
+          <div>
         <div className='invoice_header'>
           <img src={l} alt='Logo' className='invoice_logo' />
           <div className='invoice_name'>Your Name</div>
         </div>
-        <form onSubmit={handleGenerateInvoice}>
         <div className='invoice_content'>
           <div className='invoice_left'>
             <h3>Invoice To:</h3>
@@ -322,12 +362,13 @@ useEffect(() => {
             <p>Rs {grand_total}</p>
           </div>
         </div>
-
+        </div>
         <div className='generate-button-container'>
           <button className='generate-button' onClick={handlePrint}>Generate Final Invoice</button>
         </div>
         </form>
       </div>
+      {showPopup && <Popup message={popupMessage} onClose={() => {setShowPopup(false); navigate('/admin/dashboard');} }/>}
     </div>
   );
 }

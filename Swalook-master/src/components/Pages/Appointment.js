@@ -1,9 +1,11 @@
 import React, {useState , useEffect} from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Multiselect from 'multiselect-react-dropdown';
 import '../Styles/Appointment.css'
 import Header from './Header'
 import VertNav from './VertNav'
+import Popup from './Popup';
 
 function getCurrentDate() {
   const currentDate = new Date();
@@ -14,6 +16,7 @@ function getCurrentDate() {
 }
 
 function Appointment() {
+  const navigate = useNavigate();
   const currentDate = getCurrentDate();
   const [services, setServices] = useState([]);
   const [serviceOptions, setServiceOptions] = useState([]);
@@ -24,6 +27,8 @@ function Appointment() {
   const [booking_time, setBookingTime] = useState('');
   const [selectedAMPM, setSelectedAMPM] = useState('');
   const [getPresetDayAppointment, setGetPresetDayAppointment] = useState([]);
+  const [showPopup, setShowPopup] = useState(false); 
+  const [popupMessage, setPopupMessage] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -90,6 +95,16 @@ function Appointment() {
 
   const handleAddAppointment = (e) => {
     e.preventDefault();
+    if (services.length === 0) {
+      alert('Please select at least one service.');
+      return;
+    }
+
+    if(booking_time === ''){
+      alert('Please select time');
+      return;
+    }
+
     console.log(customer_name, mobile_no, email, booking_date, booking_time, services);
     const token = localStorage.getItem('token');
     axios.post("http://89.116.32.12:8000/api/swalook/appointment/",{
@@ -106,11 +121,15 @@ function Appointment() {
       }
     }).then((res) => {
       console.log(res.data);
-      alert("Appointment added successfully!");
+      // alert("Appointment added successfully!");
+      setPopupMessage("Appointment added successfully!"); // Set popup message
+      setShowPopup(true);
       console.log("appointment added");
     }).catch((err) => {
+      setPopupMessage("Failed to add appointment!"); // Set popup message for failure
+      setShowPopup(true);
       console.log(err);
-      alert("Failed to add appointment!");
+      // alert("Failed to add appointment!");
     })
   }
 
@@ -155,7 +174,7 @@ function Appointment() {
         </div>
         <div className="appointform-group">
                 <label htmlFor="phone">Phone:</label>
-                <input type="number" id="phone" className="appoint_input-field" placeholder='Enter Mobile Number' required onChange={(e)=>setMobileNo(e.target.value )}/>
+                <input type="number" id="phone" className="appoint_input-field" placeholder='Enter Mobile Number' required onChange={(e)=>setMobileNo(e.target.value )} maxLength={10}/>
         </div>
         <h3 className='sts'>Select the Service</h3>
         <div className='appoint_select-field-cont'>
@@ -221,7 +240,15 @@ function Appointment() {
                         <td>{row.customer_name}</td>
                         <td>{row.mobile_no}</td>
                         <td>{row.booking_time}</td>
-                        <td>{row.services}</td>
+                        <td>
+                          {row.services.split(',').length > 1 ? (
+                            <select className='status-dropdown'>
+                              {row.services.split(',').map((service, index) => (
+                                <option key={index} value={service}>{service}</option>
+                              ))}
+                            </select>
+                          ) : row.services.split(',')[0]}
+                        </td>
                         <td>
                           <select
                             className="status-dropdown"
@@ -241,6 +268,7 @@ function Appointment() {
         </div>
     </div>
       </div>
+      {showPopup && <Popup message={popupMessage} onClose={() => { setShowPopup(false); navigate('/admin/dashboard'); }} />}
     </div>
   )
 }

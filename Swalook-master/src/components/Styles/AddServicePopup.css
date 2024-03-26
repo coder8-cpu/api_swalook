@@ -9,13 +9,13 @@
     z-index: 999; /* Ensure it's above other elements */
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Center vertically and horizontally */
   }
   
   .popup_container {
     background-color: white;
     border: 1px solid #ccc;
-    width: fit-content;
+    max-width: 90%; /* Adjust maximum width as needed */
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

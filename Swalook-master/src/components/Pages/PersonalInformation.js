@@ -23,8 +23,8 @@ function PersonalInformation() {
                 <label htmlFor="ownerName">Owner Name:</label>
                 <input type="text" id="ownerName" />
               </div>
-              <div className="pi_input_container">
-                <label htmlFor="phoneNumber">Phone Number:</label>
+              <div className="pi_input_container pi_pn">
+                <label className='pi_l' htmlFor="phoneNumber">Phone Number:</label>
                 <input type="tel" id="phoneNumber" />
               </div>
               <div className="pi_input_container">
@@ -39,8 +39,8 @@ function PersonalInformation() {
                 <label htmlFor="panNumber">PAN Number:</label>
                 <input type="text" id="panNumber" />
               </div>
-              <div className="pi_input_container">
-                <label htmlFor="pincode">Pincode:</label>
+              <div className="pi_input_container pi_pc">
+                <label className='pi_l' htmlFor="pincode">Pincode:</label>
                 <input type="number" id="pincode" />
               </div>
               <div className='pi_up_container'>

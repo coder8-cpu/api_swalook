@@ -32,3 +32,31 @@
     opacity: 1;
     background-color: rgba(0, 0, 0, 0.76);
   }
+
+  @media only screen and (max-width: 768px) {
+  /* Existing styles */
+
+  .navbar-center {
+    /* Existing styles */
+    gap: 1rem; /* Reduce the gap between items in the navbar-center */
+  }
+
+  /* New styles for VertNav */
+  .vert_nav_main_c {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; /* Adjust the gap between VertNav items */
+  }
+
+  .icon-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Adjust the gap between icon and text */
+  }
+
+  .icon-text {
+    color: white;
+    font-size: 14px; /* Adjust the font size */
+  }
+}

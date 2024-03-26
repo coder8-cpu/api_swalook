@@ -105,7 +105,9 @@ function AdminDashboard() {
               <img className='sales_img' src="path_to_your_image.jpg" alt="Sales Graph" />
             </div>
             <div className="content-box">
+              <Link to="/appointment">  
               <h3>Appointments</h3>
+              </Link>
               <div className='US-con'>
                 <table>
                   <thead>
@@ -122,7 +124,16 @@ function AdminDashboard() {
                       <tr key={row.id}>
                         <td>{row.customer_name}</td>
                         <td>{row.booking_date}</td>
-                        <td>{row.services}</td>
+                        {/* <td>{row.services}</td> */}
+                        <td>
+                        {row.services.split(',').length > 1 ? (
+                            <select className='status-dropdown'>
+                              {row.services.split(',').map((service, index) => (
+                                <option key={index} value={service}>{service}</option>
+                              ))}
+                            </select>
+                          ) : row.services.split(',')[0]}
+                        </td>
                         <td>{row.mobile_no}</td>
                         <td><button className='edit_button'>Edit</button></td>
                       </tr>
@@ -167,7 +178,16 @@ function AdminDashboard() {
                       <td>{row.mobile_no}</td>
                       <td>{row.grand_total}</td>
                       <td>14/4/23</td>
-                      <td>{row.services}</td>
+                      {/* <td>{row.services}</td> */}
+                      <td>
+                        {row.services.split(',').length > 1 ? (
+                          <select className='status-dropdown'>
+                            {row.services.split(',').map((service, index) => (
+                              <option key={index} value={service}>{service}</option>
+                            ))}
+                          </select>
+                        ) : row.services.split(',')[0]}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

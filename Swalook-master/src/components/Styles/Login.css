@@ -28,7 +28,7 @@ label {
   font-size: large;
 }
 
-input[type="tel"],
+input[type="number"],
 input[type="password"] {
   width: 100%;
   padding: 10px;
@@ -37,6 +37,12 @@ input[type="password"] {
   border: 1px solid #ccc;
   border-radius: 3px;
   font-family: Helvetica, sans-serif;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 button {
@@ -48,6 +54,24 @@ button {
   width: 100%;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.l_al{
+  display: flex;
+  justify-content: center;
+  
+}
+
+.Admin_L_button{
+  background-color: #091A44;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  font-size: large;
+  width: 50%;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
 .forgot-password {
@@ -145,12 +169,18 @@ button {
 
   .loginbg {
       width: 100%;
-      height: 125%;
+      /* height: 125%; */
   }
 
   input[type="tel"],
   input[type="password"] {
       margin-bottom: 10px; /* Adjust margin */
+  }
+
+  .logo{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
   }
 
   .S_logo {

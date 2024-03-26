@@ -63,6 +63,16 @@ function GenerateInvoice() {
     }
 
     const handleGenerateInvoice = () => {
+      if(GBselectedServices.length === 0){
+        alert('Please select services!');
+        return;
+      }
+
+      if(service_by.length === 0){
+        alert('Please select served by!');
+        return;
+      }
+
       navigate('/invoice',{
         state: {
           customer_name,

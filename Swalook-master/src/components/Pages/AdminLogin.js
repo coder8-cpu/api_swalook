@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import ForgetPassword from './ForgetPassword';
 import Logo1 from '../../assets/S_logo.png'
 import axios from 'axios';
+import Cookies from 'js-cookie';
+
 
 function AdminLogin() {
   const navigate = useNavigate();
@@ -21,8 +23,9 @@ function AdminLogin() {
     
     .then((res) => {
       if(res.data.text === 'login successfull !'){
+        Cookies.set('loggedIn', 'true', { expires: 90 });
         navigate('/admin/dashboard');
-        alert('login successfull !');
+        // alert('login successfull !');
       }
       const token = res.data.token; 
       localStorage.setItem('token', token);
@@ -50,11 +53,12 @@ function AdminLogin() {
           <div className="AL_input-group">
             <label htmlFor="phone-number">Phone Number:</label>
             <input
-              type="tel"
+              type="number"
               id="phone-number"
               name="phoneNumber"
               placeholder="Enter your phone number"
               onChange={(e) => setMobileno(e.target.value)}
+              required
             />
           </div>
           <div className="AL_input-group">
@@ -63,8 +67,9 @@ function AdminLogin() {
               type="password"
               id="password"
               name="password"
-                placeholder="Enter your password"
-                onChange={(e)=> setPassword(e.target.value)}
+              placeholder="Enter your password"
+              onChange={(e)=> setPassword(e.target.value)}
+              required
             />
           </div>
           <p class="forgot-password">Forgot your password? <a onClick={handleResetPasswordClick}>Reset it</a></p>

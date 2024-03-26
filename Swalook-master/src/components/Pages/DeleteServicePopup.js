@@ -2,10 +2,13 @@ import React,{useState , useEffect} from 'react'
 import '../Styles/DeleteServicePopup.css'
 import Multiselect from 'multiselect-react-dropdown';
 import axios from 'axios';
+import Popup from './Popup';
 
 function DeleteServicePopup({onClose}) { 
   const [deleteSelectedServices, setDeleteSelectedServices] = useState([]);
   const [serviceOptions, setServiceOptions] = useState([]);
+  const [showPopup, setShowPopup] = useState(false); 
+  const [popupMessage, setPopupMessage] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -36,6 +39,11 @@ function DeleteServicePopup({onClose}) {
 
 
   const handleDelete = () => {
+    if(deleteSelectedServices.length === 0){
+      alert("Please select services to delete.");
+      return;
+    }
+
     const token = localStorage.getItem('token');
     deleteSelectedServices.forEach(service => {
       console.log(`Deleting service with ID ${service.id}.`);
@@ -47,10 +55,13 @@ function DeleteServicePopup({onClose}) {
       })
         .then(response => {
           if (response.ok) {
-            alert("Service deleted successfully!");
+            // alert("Service deleted successfully!");
             onClose();
           } else {
-            alert("Failed to delete service.");
+            // alert("Failed to delete service.");
+            setPopupMessage("Service deleted successfully!");
+            setShowPopup(true);
+            onClose();
           }
         })
         .catch(error => {
@@ -86,6 +97,7 @@ function DeleteServicePopup({onClose}) {
         <button className="delete_button">Delete</button>
         </form>
         </div>
+        {showPopup && <Popup message={popupMessage} onClose={() => {setShowPopup(false)}} />}
     </div>
   )
 }

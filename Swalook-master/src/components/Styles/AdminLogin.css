@@ -18,10 +18,10 @@ body{
 .admin_S_logo {
   display: flex;
   justify-content: left;
-  margin-top: -60px;
+  margin-top: -80px;
   margin-left: -296px;
-  width: 120px;
-  height: 60px;
+  width: 150px;
+  height: auto;
 }
 
 .admin_login_main {
@@ -152,8 +152,10 @@ button {
 }
 
 @media only screen and (max-width: 480px) {
+  
   .admin_S_logo {
-      margin-left: -40px; 
+      margin-left: -25px; 
+      margin-top: -80px;
   }
 
   .admin_right {

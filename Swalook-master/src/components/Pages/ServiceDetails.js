@@ -49,7 +49,10 @@ function ServiceDetails() {
 
     return (
         <div className='admin_service_container'>
+            <div className='c_header'>
+
             <Header />
+            </div>
             <div className="service_details_header">
                 <h1>Service Details</h1>
                 <div>

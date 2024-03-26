@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useRef}from 'react'
 import { Link } from 'react-router-dom'
 import '../Styles/VertNav.css'
 import StorefrontIcon from '@mui/icons-material/Storefront';
@@ -11,7 +11,7 @@ function VertNav() {
     <div className='vert_nav_main_c'>
         <div className="icon-container">
             <Link to="/appointment">
-              <BookOnlineIcon style={{ fontSize: 30, margin: '10px', color: 'white' }} />
+              <BookOnlineIcon style={{ fontSize: 30, margin: '10px', color: 'white' }}/>
               <span className="icon-text">Appointment</span>
             </Link>
           </div>
