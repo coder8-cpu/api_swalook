@@ -25,7 +25,7 @@ function AdminLogin() {
     .then((res) => {
       if(res.data.text === 'login successfull !'){
         Cookies.set('loggedIn', 'true', { expires: 90 });
-        navigate('/admin/dashboard');
+        navigate('/dashboard');
         // alert('login successfull !');
       }
       const token = res.data.token; 
@@ -34,6 +34,10 @@ function AdminLogin() {
     }).catch((err) => {
       console.log(err);
     })
+  }
+
+  const handleGoToStaffLogin = () => {
+    navigate('/staff');
   }
 
     const handleResetPasswordClick = () => {
@@ -78,6 +82,10 @@ function AdminLogin() {
           <p class="forgot-password">Forgot your password? <a onClick={handleResetPasswordClick}>Reset it</a></p>
           <button type="submit">Login</button>
           </form>
+
+          <div className='l_al'>
+        <button className='Admin_L_button' onClick={handleGoToStaffLogin}>Staff Login</button>
+        </div>
         </div>
             </div>
 

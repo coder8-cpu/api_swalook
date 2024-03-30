@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import '../Styles/EditServicePopup.css';
 import axios from 'axios';
+import Popup from './Popup';
 
 function EditServicePopup({ onClose, serviceData }) {
     const [serviceDuration, setServiceDuration] = useState('');
     const [servicePrice, setServicePrice] = useState('');
+    const [showPopup, setShowPopup] = useState(false); 
+    const [popupMessage, setPopupMessage] = useState('');
 
     console.log(serviceData);
     console.log(serviceData.id);
@@ -32,10 +35,14 @@ function EditServicePopup({ onClose, serviceData }) {
         .then((res) => {
             console.log(res.data);
             console.log("Service edited");
-            alert("Service edited successfully!");
+            setPopupMessage("Service edited successfully!");
+            setShowPopup(true);
+            // alert("Service edited successfully!");
             onClose(); // Close the popup after successful editing
         })
         .catch((err) => {
+            setPopupMessage("Failed to edit service.");
+            setShowPopup(true);
             console.log(err);
         });
     };
@@ -68,6 +75,7 @@ function EditServicePopup({ onClose, serviceData }) {
                     </div>
                 </form>
             </div>
+            {showPopup && <Popup message={popupMessage} onClose={() => setShowPopup(false)} />}
         </div>
     );
 }

@@ -56,11 +56,7 @@ button {
   cursor: pointer;
 }
 
-.l_al{
-  display: flex;
-  justify-content: center;
-  
-}
+
 
 .Admin_L_button{
   background-color: #091A44;

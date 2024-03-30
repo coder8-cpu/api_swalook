@@ -55,6 +55,12 @@ input[type="password"] {
   font-family: Helvetica, sans-serif;
 }
 
+.l_al{
+  display: flex;
+  justify-content: center;
+  
+}
+
 button {
   background-color: #091A44;
   color: white;

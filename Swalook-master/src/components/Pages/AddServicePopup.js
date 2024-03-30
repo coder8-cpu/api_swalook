@@ -31,9 +31,9 @@ function AddServicePopup({ onClose }) {
       console.log(res.data);
       console.log("service added");
       // alert("Service added successfully!");
-      onClose();
       setPopupMessage("Service added successfully!");
       setShowPopup(true);
+      onClose();
 
     })
     .catch((err) => {
@@ -70,7 +70,7 @@ function AddServicePopup({ onClose }) {
         </div>
       </form>
     </div>
-    {showPopup && <Popup message={popupMessage} onClose={() => {setShowPopup(false); navigate('/admin/service');} }/>}
+    {showPopup && <Popup message={popupMessage} onClose={() => {setShowPopup(false); navigate('/service');} }/>}
   </div>
   );
 }

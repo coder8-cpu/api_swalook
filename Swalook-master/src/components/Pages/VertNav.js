@@ -29,6 +29,10 @@ function VertNav() {
             <StorefrontIcon style={{ fontSize: 30, margin: '10px', color: 'white' }} />
             <span className="icon-text">Store</span>
           </div>
+          <div className='icon-container'>
+            <p style={{ fontSize: 15, fontWeight:'bold' ,margin: '10px', color: 'white' }}>CLP</p>
+            <span className="icon-text">Customer Loyality Program</span>
+          </div>
     </div>
   )
 }

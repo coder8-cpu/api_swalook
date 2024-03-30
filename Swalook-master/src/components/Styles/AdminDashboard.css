@@ -19,6 +19,10 @@
     background-color: #f1f1f1; 
 }
 
+.invoice_button{
+  width: 200px;
+}
+
 .gradient-heading {
   /* Option 1: Blue to Purple Gradient */
   background-image: linear-gradient(to right, royalblue, #091A44);
@@ -228,9 +232,6 @@
   }
   
 
-  /* Existing CSS */
-
-/* Media query for smaller screens */
 @media (max-width: 768px) {
   .content-header {
     flex-direction: column; /* Align items vertically */

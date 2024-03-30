@@ -177,6 +177,7 @@ function AdminDashboard() {
                     <th>Billing Amount</th>
                     <th>Date</th>
                     <th>Services</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -196,6 +197,7 @@ function AdminDashboard() {
                           </select>
                         ) : row.services.split(',')[0]}
                       </td>
+                      <td><button className='invoice_button'>Show Invoice</button></td>
                     </tr>
                   ))}
                 </tbody>

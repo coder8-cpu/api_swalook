@@ -11,7 +11,7 @@ function Settings() {
     <div className='settings_container'>
         <Header />
         <div className="content_container">
-        <Link to="/admin/settings/personalInformation" className="settings_box" >
+        <Link to="/settings/personalInformation" className="settings_box" >
           <img src={PI} alt="Personal Information" />
           <h2>Personal Information</h2>
           <p>Manage your account details</p>

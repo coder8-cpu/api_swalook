@@ -10,10 +10,6 @@ function Login() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleGoToAdminLogin = () => {
-        navigate('/admin');
-    }
-
     const handleResetPasswordClick = () => {
       
       navigate('/forgetpassword');
@@ -51,9 +47,9 @@ function Login() {
           </div>
           <p class="forgot-password">Forgot your password? <a onClick={handleResetPasswordClick}>Reset it</a></p>
           <button type="submit">Login</button>
-          <div className='l_al'>
+          {/* <div className='l_al'>
         <button className='Admin_L_button' onClick={handleGoToAdminLogin}>Admin Login</button>
-        </div>
+        </div> */}
         </div>
         <div className='log_design'>
 

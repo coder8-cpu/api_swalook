@@ -58,9 +58,9 @@ const showNavbar = () => {
       </div>
       <div>
       <div className="navbar-center" ref={navRef}>
-        <button className="nav-button"><Link to="/admin/dashboard" className="nav-link">Home</Link></button>
-        <button className="nav-button"><Link to="/admin/service" className="nav-link">Service</Link></button>
-        <button className="nav-button"><Link to="/admin/settings" className="nav-link">Settings</Link></button>
+        <button className="nav-button"><Link to="/dashboard" className="nav-link">Home</Link></button>
+        <button className="nav-button"><Link to="/service" className="nav-link">Service</Link></button>
+        <button className="nav-button"><Link to="/settings" className="nav-link">Settings</Link></button>
         <button className="nav-button"><Link to="/24*7" className="nav-link">24*7</Link></button>
         <button className='nav-btn nav-close-btn'>
         <CloseIcon onClick={showNavbar} sx={{ fontSize: '36px' }} />

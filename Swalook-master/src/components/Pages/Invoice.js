@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useReactToPrint } from "react-to-print";
 import '../Styles/Invoice.css';
-import l from '../../assets/SwaLookL.png';
+import Logo1 from '../../assets/S_logo.png'
 import numberToWords from '../Pages/NumberToWords';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -310,7 +310,7 @@ useEffect(() => {
         <form onSubmit={handleGenerateInvoice}>
           <div>
         <div className='invoice_header'>
-          <img src={l} alt='Logo' className='invoice_logo' />
+          <img src={Logo1} alt='Logo' className='invoice_logo' />
           <div className='invoice_name'>{getSaloonName}</div>
         </div>
         <div className='invoice_content'>
@@ -399,7 +399,7 @@ useEffect(() => {
         </div>
         </form>
       </div>
-      {showPopup && <Popup message={popupMessage} onClose={() => {setShowPopup(false); navigate('/admin/dashboard');} }/>}
+      {showPopup && <Popup message={popupMessage} onClose={() => {setShowPopup(false); navigate('/dashboard');} }/>}
     </div>
   );
 }

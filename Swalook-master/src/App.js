@@ -21,9 +21,9 @@ function App() {
     <div>
       <Router>    
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/staff" element={<Login />} />
           {/* <Route path="/admin" element={<AdminLogin />} /> */}
-          <Route path="/admin" element={isLoggedIn ? <Navigate to= "/admin/dashboard" /> : <AdminLogin />} />
+          <Route path="/" element={isLoggedIn ? <Navigate to= "/dashboard" /> : <AdminLogin />} />
           {/* <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/service" element={<ServiceDetails />} />
           <Route path="/admin/settings" element={<Settings />} />
@@ -33,10 +33,10 @@ function App() {
           <Route path="/invoice" element={<Invoice />} /> */}
 
           <Route element={<PrivateRoute />}>
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/service" element={<ServiceDetails />} />
-            <Route path="/admin/settings" element={<Settings />} />
-            <Route path="/admin/settings/personalInformation" element={<PersonalInformation />} />
+            <Route path="/dashboard" element={<AdminDashboard />} />
+            <Route path="/service" element={<ServiceDetails />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/settings/personalInformation" element={<PersonalInformation />} />
             <Route path="/appointment" element={<Appointment />} />
             <Route path="/generatebill" element={<GenerateInvoice />} />
             <Route path="/invoice" element={<Invoice />} />

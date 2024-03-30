@@ -24,7 +24,8 @@ function Appointment() {
   const [customer_name, setCustomerName] = useState('');
   const [mobile_no , setMobileNo] = useState('');
   const [email , setEmail] = useState('');
-  const booking_date = currentDate;
+  // const booking_date = currentDate;
+  const [booking_date, setBookingDate] = useState('');
   const [booking_time, setBookingTime] = useState('');
   const [selectedAMPM, setSelectedAMPM] = useState('');
   const [getPresetDayAppointment, setGetPresetDayAppointment] = useState([]);
@@ -196,7 +197,8 @@ function Appointment() {
         <h3 className='sch'>Schedule</h3>
         <div className="schedule_form-group">
                 <label htmlFor="date" className="schedule_date-label">Date:</label>
-                <input type="text" id="date" className="schedule_date-input" value={currentDate} readOnly />
+                {/* <input type="text" id="date" className="schedule_date-input" value={currentDate} readOnly /> */}
+                <input type='date' id='date' className='schedule_date-input' onChange={(e) => setBookingDate(e.target.value)} />
               </div>
               <div className="schedule_time-selection">
                 <label htmlFor="hours" className="schedule_time-label">Time:</label>
@@ -272,7 +274,7 @@ function Appointment() {
         </div>
     </div>
       </div>
-      {showPopup && <Popup message={popupMessage} onClose={() => { setShowPopup(false); navigate('/admin/dashboard'); }} />}
+      {showPopup && <Popup message={popupMessage} onClose={() => { setShowPopup(false); navigate('/dashboard'); }} />}
     </div>
   )
 }
