@@ -234,6 +234,8 @@ class vendor_billing(CreateAPIView,ListAPIView,):
             ''' returning the status and info as response'''
             return Response({
             "status":True,
+            'slno':serializer.data.get('slno'),
+            
             
 
         })
@@ -241,10 +243,12 @@ class vendor_billing(CreateAPIView,ListAPIView,):
     def list(self,request):
       
         query_set = VendorInvoice.objects.filter(vendor_name=request.user)
+        query_set_salon_name = SwalookUserProfile.objects.get(mobile_no=str(request.user))
         serializer_obj = billing_serailizer(query_set,many=True)
         return Response({
             "status":True,
             "table_data":serializer_obj.data,
+            "salon_name":query_set_salon_name.salon_name,
 
         })
 
@@ -291,22 +295,19 @@ class edit_appointment(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = update_appointment_serializer
     def post(self,request,id):
-        serializer_objects           = self.serializer_class(request.data)                 # convertion of request.data into python native datatype
-        json_data                    = JSONRenderer().render(serializer_objects.data)      # rendering the data into json
-        stream_data_over_network     = io.BytesIO(json_data)                                 # streaming the data into bytes
-        accept_json_stream           = JSONParser().parse(stream_data_over_network)            # prases json data types data
-        ''' passing the json stream data into serializer '''
+         
+        accept_json_stream           =  request.data       
 
         queryset = VendorAppointment.objects.get(id=id)
         
         queryset.delete()
         queryset = VendorAppointment()
         queryset.customer_name = accept_json_stream.get('customer_name')
-        queryset.mobile_no =        accept_json_stream.get('mobile_no')
-        queryset.email =            accept_json_stream.get('email')
-        queryset.services =         accept_json_stream.get('services')
-        queryset.booking_time =     accept_json_stream.get('booking_time')
-        queryset.booking_date =     accept_json_stream.get('booking_date')
+        queryset.mobile_no     =        accept_json_stream.get('mobile_no')
+        queryset.email         =            accept_json_stream.get('email')
+        queryset.services      =         accept_json_stream.get('services')
+        queryset.booking_time  =     accept_json_stream.get('booking_time')
+        queryset.booking_date  =     accept_json_stream.get('booking_date')
         # queryset.status_pending    = accept_json_stream.get('status_pending')
         # queryset.status_completed =  accept_json_stream.get('status_completed')
         # queryset.status_canceled  =  accept_json_stream.get('status_cancelled')
@@ -334,6 +335,7 @@ class delete_appointment(APIView):
         queryset.delete()
         return Response({
             "status":True,
+            'code':302,
             "appointment_deleted_id":id,
           
         })
