@@ -104,7 +104,7 @@ class billing_serailizer(serializers.ModelSerializer):
             validated_data['week']= "3"
         if int(mon.day) >=24 and int(mon.day) <=31:
             validated_data['week']= "4"
-        print(str(self.context.get('request').user))
+        
         v_id = SwalookUserProfile.objects.filter(mobile_no=str(self.context.get('request').user))
         slno = v_id[0].vendor_id.lower() + str(v_id[0].invoice_generated) + str(m_) + str(y_)
         validated_data['slno'] =  slno

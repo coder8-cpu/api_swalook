@@ -212,8 +212,19 @@ class Table_service(APIView):
             "table_data":serializer_obj.data,
 
         })
-        
-
+class get_slno(APIView):
+    def get(self,request):
+  
+        mon = dt.date.today()
+        m_ = mon.month
+        y_ = mon.year
+      
+        v_id = SwalookUserProfile.objects.filter(mobile_no=str(request.user))
+        slno = v_id[0].vendor_id.lower() + str(v_id[0].invoice_generated) + str(m_) + str(y_)       
+        return Response({
+            "slno":slno,    
+        })
+    
 class vendor_billing(CreateAPIView,ListAPIView,):
     permission_classes = [IsAuthenticated]
     serializer_class = billing_serailizer
@@ -302,10 +313,10 @@ class edit_appointment(CreateAPIView):
         
         queryset.delete()
         queryset = VendorAppointment()
-        queryset.customer_name = accept_json_stream.get('customer_name')
-        queryset.mobile_no     =        accept_json_stream.get('mobile_no')
-        queryset.email         =            accept_json_stream.get('email')
-        queryset.services      =         accept_json_stream.get('services')
+        queryset.customer_name =     accept_json_stream.get('customer_name')
+        queryset.mobile_no     =     accept_json_stream.get('mobile_no')
+        queryset.email         =     accept_json_stream.get('email')
+        queryset.services      =     accept_json_stream.get('services')
         queryset.booking_time  =     accept_json_stream.get('booking_time')
         queryset.booking_date  =     accept_json_stream.get('booking_date')
         # queryset.status_pending    = accept_json_stream.get('status_pending')
