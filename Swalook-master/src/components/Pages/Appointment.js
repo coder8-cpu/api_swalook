@@ -6,6 +6,7 @@ import '../Styles/Appointment.css'
 import Header from './Header'
 import VertNav from './VertNav'
 import Popup from './Popup';
+import { Helmet } from 'react-helmet';
 
 function getCurrentDate() {
   const currentDate = new Date();
@@ -151,6 +152,9 @@ function Appointment() {
   }, []);
   return (
     <div className='appoint_dash_main'>
+      <Helmet>
+        <title>Book Appointment</title>
+      </Helmet>
       <Header />
       <div className='appoint_horizontal'>
       <div className='appoint_h1'>

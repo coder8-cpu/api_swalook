@@ -47,6 +47,7 @@
     margin-right: 20px; /* 20px margin from the right */
     font-size: 2rem; 
     font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif
   }
 
   .invoice_content {
@@ -252,4 +253,13 @@
   }
   
 
+  .generate-button-container {
+    display: block;
+  }
+  
+  @media print {
+    .generate-button-container {
+      display: none;
+    }
+  }
   

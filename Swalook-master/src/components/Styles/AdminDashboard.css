@@ -19,6 +19,28 @@
     background-color: #f1f1f1; 
 }
 
+.gradient-heading {
+  /* Option 1: Blue to Purple Gradient */
+  background-image: linear-gradient(to right, royalblue, #091A44);
+  background-size: 300% 100%;  /* Repeat background to create stripes */
+  background-position: -100%;  /* Start with gradient fully shifted to the left */
+  animation: move-gradient 3s ease-in infinite;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+@keyframes move-gradient {
+  from {
+    background-position: 100%;
+  }
+  to {
+    background-position: -100%;
+  }
+}
+
 .content-header {
     margin-top: 20px;
     display: flex;
@@ -94,7 +116,6 @@
     width: 100%;
     border-collapse: collapse;
     border-radius: 10px;
-    overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
@@ -206,4 +227,61 @@
     }
   }
   
-  
+
+  /* Existing CSS */
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .content-header {
+    flex-direction: column; /* Align items vertically */
+    align-items: flex-start; /* Align items to the start of the container */
+  }
+
+  .content-header h1 {
+    margin-bottom: 10px; /* Add spacing below the header */
+  }
+
+  .content-header input[type="text"] {
+    width: 100%; /* Full width for the search bar */
+    max-width: none; /* Remove max-width for responsiveness */
+  }
+
+  .content-box,
+  .content-footer {
+    margin-top: 20px; /* Add spacing between sections */
+  }
+
+  .content-box,
+  .content-footer,
+  .main-content {
+    width: 90%;
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+  .content-box table,
+  .BT-con table {
+    width: 100%;
+    
+    overflow-x: auto; /* Enable horizontal scrolling for tables */
+  }
+
+  .content-box th,
+  .content-box td,
+  .BT-con th,
+  .BT-con td {
+    white-space: nowrap; /* Prevent line breaks in table cells */
+  }
+
+  .BT-con td:last-child {
+    text-align: left; /* Adjust text alignment for last column in billing table */
+  }
+
+  .content-body{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .first_ad{
+    display: none;
+  }
+}

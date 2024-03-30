@@ -5,6 +5,7 @@ import Header from './Header';
 import AddServicePopup from './AddServicePopup';
 import DeleteServicePopup from './DeleteServicePopup';
 import EditServicePopup from './EditServicePopup';
+import { Helmet } from 'react-helmet';
 
 function ServiceDetails() {
     const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
@@ -49,6 +50,9 @@ function ServiceDetails() {
 
     return (
         <div className='admin_service_container'>
+            <Helmet>
+        <title>Services</title>
+      </Helmet>
             <div className='c_header'>
 
             <Header />

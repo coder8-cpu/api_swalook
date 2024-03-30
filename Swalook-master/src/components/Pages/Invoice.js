@@ -9,6 +9,7 @@ import numberToWords from '../Pages/NumberToWords';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import Popup from './Popup';
+import { Helmet } from 'react-helmet';
 
 function Invoice() {
   // const componentRef = useRef();
@@ -45,7 +46,7 @@ function Invoice() {
       const imgHeight = componentHeight - (2 * margin);
   
       pdf.addImage(imgData, 'PNG', posX, posY, imgWidth, imgHeight);
-      pdf.save('download.pdf');
+      pdf.save('Invoice.pdf');
     });
   };
   
@@ -86,7 +87,10 @@ function Invoice() {
   const discount = location.state.discount;
   const gst_number = location.state.gst_number;
 
-  const [prices, setPrices] = useState(Array(services.length).fill(services.map(service => service.price)));
+  const initialPrices = services.map(service => parseFloat(service.price));
+  const [prices, setPrices] = useState(initialPrices);
+
+  // const [prices, setPrices] = useState(Array(services.length).fill(services.map(service => service.price)));
   const [quantities, setQuantities] = useState(Array(services.length).fill(1));
   const [discounts, setDiscounts] = useState(Array(services.length).fill(discount));
   const [taxes, setTaxes] = useState(Array(services.length).fill(0));
@@ -108,6 +112,7 @@ useEffect(() => {
   // Calculate and set total price
   const totalPrice = prices.reduce((acc, price) => acc + parseFloat(price), 0);
   setTotalPrice(totalPrice);
+  
 
   // Calculate and set total quantity
   const totalQuantity = quantities.reduce((acc, quantity) => acc + parseFloat(quantity), 0);
@@ -273,14 +278,40 @@ useEffect(() => {
       });
   };
 
+  const [getInvoiceId , setInvoiceId] = useState('');
+  useEffect(() => {
+    axios.get('http://89.116.32.12:8000/api/swalook/get_specific_slno/', {
+      headers: {
+        'Authorization': `Token ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        console.log(response.data);
+        setInvoiceId(response.data.slno);
+      })
+      .catch(error => {
+        console.error('Error fetching invoice id:', error);
+      });
+  }
+  , []);
+
+  const [getSaloonName, setSaloonName] = useState('');
+  useEffect(()=>{
+    setSaloonName(localStorage.getItem('saloon_name'));
+  })
+
   return (
     <div className='invoice_container'>
+      <Helmet>
+        <title>Invoice</title>
+      </Helmet>
       <div  className='invoice_main'>
         <form onSubmit={handleGenerateInvoice}>
           <div>
         <div className='invoice_header'>
           <img src={l} alt='Logo' className='invoice_logo' />
-          <div className='invoice_name'>Your Name</div>
+          <div className='invoice_name'>{getSaloonName}</div>
         </div>
         <div className='invoice_content'>
           <div className='invoice_left'>
@@ -290,7 +321,7 @@ useEffect(() => {
             <p>{email}</p>
           </div>
           <div className='invoice_right'>
-            <h5>InvoiceId</h5>
+            <h5>InvoiceId: {getInvoiceId}</h5>
             <div className='invoice_date'>
               <p>Date of Invoice: </p>
               <p>{getCurrentDate()}</p>
@@ -324,7 +355,7 @@ useEffect(() => {
                   <td scope='col' style={{ textAlign: 'center' }}>{index + 1}</td>
                   <td scope='col' className='text-center' style={{ textAlign: 'center' }}>{service.value}</td>
                   <td scope='col' className='text-center' style={{ textAlign: 'center' }}>
-                    <input type='text' className='editable-field' id={`price_input_${index}`} defaultValue={service.price} onChange={(e) => handlePriceBlur(index, e.target.value)} />
+                    <input type='text' className='editable-field' id={`price_input_${index}`} value={prices[index]} onChange={(e) => handlePriceBlur(index, e.target.value)} />
                   </td>
                   <td scope='col' className='text-center' style={{ textAlign: 'center' }}>
                     <input type='text' className='editable-field' id={`quantity_input_${index}`} defaultValue={1} onBlur={(e) => handleQuantityBlur(index, e.target.value)} />

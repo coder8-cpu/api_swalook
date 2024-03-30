@@ -1,5 +1,6 @@
 import React , {useState} from 'react'
 import '../Styles/AdminLogin.css'
+import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 import ForgetPassword from './ForgetPassword';
 import Logo1 from '../../assets/S_logo.png'
@@ -41,7 +42,9 @@ function AdminLogin() {
   };
   return (
     <div className='Admin_login_container'>
-        
+      <Helmet>
+        <title>Admin Login</title>
+      </Helmet>
         <div className='admin_login_main'>
             <div className='admin_left'>
             <div className='admin_logo'>

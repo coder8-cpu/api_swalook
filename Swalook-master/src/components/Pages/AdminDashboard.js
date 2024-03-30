@@ -5,11 +5,13 @@ import Header from './Header.js';
 import '../../components/Styles/AdminDashboard.css';
 import SearchIcon from '@mui/icons-material/Search';
 import VertNav from './VertNav.js';
+import { Helmet } from 'react-helmet';
 
 function AdminDashboard() {
   const [originalData, setOriginalData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [saloonName, setSaloonName] = useState('');
 
   const [orginalBillData, setOriginalBillData] = useState([]);
   const [filteredBillData, setFilteredBillData] = useState([]);
@@ -55,6 +57,9 @@ function AdminDashboard() {
     })
       .then((res) => {
         console.log(res.data);
+        localStorage.setItem('saloon_name', res.data.salon_name);
+        setSaloonName(localStorage.getItem('saloon_name'));
+
         setOriginalBillData(res.data.table_data);
         setFilteredBillData(res.data.table_data);
       })
@@ -78,6 +83,9 @@ function AdminDashboard() {
 
   return (
     <div className='Admin_dash_main'>
+      <Helmet>
+        <title>Admin Dashboard</title>
+      </Helmet>
       <Header />
       <div className='horizontal-container'>
         <div className='vertical-navigation'>
@@ -87,7 +95,7 @@ function AdminDashboard() {
         </div>
         <div className='main-content'>
           <div className="content-header">
-            <h1>Welcome Admin!</h1>
+            <h1 class="gradient-heading">Welcome, {saloonName}</h1>
             <div className="US_search-bar">
               <input
                 type="text"
@@ -100,7 +108,7 @@ function AdminDashboard() {
           </div>
 
           <div className="content-body">
-            <div className="content-box">
+            <div className="content-box first_ad">
               <h3>Sales Graph</h3>
               <img className='sales_img' src="path_to_your_image.jpg" alt="Sales Graph" />
             </div>

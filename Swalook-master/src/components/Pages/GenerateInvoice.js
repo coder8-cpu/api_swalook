@@ -7,6 +7,7 @@ import Header from './Header'
 import VertNav from './VertNav'
 import invoiceImg from '../../assets/invoice.png'
 import {Link} from 'react-router-dom'
+import { Helmet } from 'react-helmet';
 
 function GenerateInvoice() {
   const navigate = useNavigate();
@@ -90,6 +91,9 @@ function GenerateInvoice() {
   };
   return (
     <div className='gb_dash_main'>
+      <Helmet>
+        <title>Generate Invoice</title>
+      </Helmet>
         <Header />
         <div className='gb_horizontal'>
         <div className='gb_h1'>
