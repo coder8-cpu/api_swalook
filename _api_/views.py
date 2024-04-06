@@ -302,9 +302,9 @@ class VendorAppointments(CreateAPIView,ListAPIView,):
         })
    
 
-class edit_appointment(CreateAPIView):
+class edit_appointment(APIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = update_appointment_serializer
+    
     def post(self,request,id):
          
         accept_json_stream           =  request.data       
