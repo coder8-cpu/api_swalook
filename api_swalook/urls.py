@@ -41,6 +41,7 @@ urlpatterns = [
     path('api/swalook/delete/services/<id>/',Delete_service.as_view()),
     path('api/swalook/get_specific/appointment/<id>/',get_specific_appointment.as_view()),
     path('api/swalook/get_specific_slno/',get_slno.as_view()),
+    path('api/swalook/get_current_user/<id>/',get_current_user_profile.as_view()),
  
 
 
