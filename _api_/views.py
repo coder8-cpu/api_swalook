@@ -461,6 +461,6 @@ class get_current_user_profile(APIView):
         data = SwalookUserProfile.objects.get(mobile_no=id)
         return Response({
             "status":True,
-            "current_user_data": data,
+            "current_user_data": json.dump(data),
 
         })
