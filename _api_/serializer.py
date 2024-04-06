@@ -44,6 +44,8 @@ class signup_serializer(ModelSerializer):
         validated_data['invoice_generated'] = 0
         validated_data['appointment_generated'] = 0
         validated_data['gst_number'] = "0"
+        validated_data['pan_number'] = "0"
+        validated_data['pincode'] = "0"
         validated_data['profile_pic'] = "/data/inv.png/"
         user = User()
         user.username = validated_data['mobile_no']

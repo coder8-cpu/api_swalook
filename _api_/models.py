@@ -18,6 +18,8 @@ class SwalookUserProfile(models.Model):
     account_created_date  = models.DateField(    auto_now_add=False,null=True    )
     user_ip               = models.CharField    (    max_length=200,    null=True,         blank=True)
     gst_number            = models.CharField    (    max_length=20,     null=True,         blank=True) 
+    pan_number            = models.CharField    (    max_length=20,     null=True,         blank=True) 
+    pincode               = models.CharField    (    max_length=20,     null=True,         blank=True) 
     number_of_staff       = models.IntegerField (    default=0)
     s_gst_percent         = models.CharField    (    max_length=30)
     c_gst_percent         = models.CharField    (    max_length=30)
@@ -124,6 +126,9 @@ class VendorStaff(models.Model):
         verbose_name = "Vendor Staff"
     def __str__(self) -> str:
         return str(self.staff_name)
+
+
+
 
 
 
