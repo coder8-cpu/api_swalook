@@ -29,7 +29,10 @@ function AdminLogin() {
         // alert('login successfull !');
       }
       const token = res.data.token; 
+
+      const number = btoa(res.data.user);
       localStorage.setItem('token', token);
+      localStorage.setItem('number', number);
       console.log(res.data);
     }).catch((err) => {
       console.log(err);
