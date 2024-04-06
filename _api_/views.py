@@ -458,7 +458,7 @@ class restart_server(APIView):
 class get_current_user_profile(APIView):
     permission_classes = [IsAuthenticated]
     def get(self,request,id):
-        data = SwalookUserProfile.objects.get(id=id)
+        data = SwalookUserProfile.objects.get(mobile_no=id)
         return Response({
             "status":True,
             "current_user_data": data,
