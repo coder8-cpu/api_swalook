@@ -190,3 +190,8 @@ class staff_serializer(serializers.ModelSerializer):
         model = VendorStaff
         fields = ["staff_name","billing_permission","is_user_staff","mobile_no","password","appointment_permission"]
 
+class user_data_set_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = SwalookUserProfile
+        fields = "__all__"
+
