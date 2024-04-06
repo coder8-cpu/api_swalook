@@ -106,7 +106,8 @@ class vendor_login(CreateAPIView):
                 'status':True,                                                      # corresponding to ---> 'key:value' for access data
                 'code': 302,
                 'text' : "login successfull !",
-                'token': str(token[0])
+                'token': str(token[0]),
+                'user': str(request.user),
                 
 
             },)
@@ -253,7 +254,7 @@ class vendor_billing(CreateAPIView,ListAPIView,):
     
     def list(self,request):
       
-        query_set = VendorInvoice.objects.filter(vendor_name=request.user)
+        query_set = VendorInvoice.objects.filter(vendor_name=request.user)[::-1]
         query_set_salon_name = SwalookUserProfile.objects.get(mobile_no=str(request.user))
         serializer_obj = billing_serailizer(query_set,many=True)
         return Response({
@@ -293,7 +294,7 @@ class VendorAppointments(CreateAPIView,ListAPIView,):
             })
     
     def list(self,request):
-        query_set = VendorAppointment.objects.filter(vendor_name=request.user)
+        query_set = VendorAppointment.objects.filter(vendor_name=request.user)[::-1]
         serializer_obj = appointment_serializer(query_set,many=True)
         return Response({
             "status":True,
