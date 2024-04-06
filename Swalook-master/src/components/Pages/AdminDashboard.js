@@ -6,6 +6,7 @@ import '../../components/Styles/AdminDashboard.css';
 import SearchIcon from '@mui/icons-material/Search';
 import VertNav from './VertNav.js';
 import { Helmet } from 'react-helmet';
+import EditAppointment from './EditAppointment.js';
 
 function AdminDashboard() {
   const [originalData, setOriginalData] = useState([]);
@@ -80,6 +81,13 @@ function AdminDashboard() {
     setFilteredBillData(filteredBillRows);
   }
 
+  const [showEditPopup, setShowEditPopup] = useState(false);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
+
+  const handleEditClick = (appointment) => {
+    setSelectedAppointment(appointment);
+    setShowEditPopup(true);
+  };
 
   return (
     <div className='Admin_dash_main'>
@@ -143,7 +151,10 @@ function AdminDashboard() {
                           ) : row.services.split(',')[0]}
                         </td>
                         <td>{row.mobile_no}</td>
-                        <td><button className='edit_button'>Edit</button></td>
+                        {/* <td><button className='edit_button'>Edit</button></td> */}
+                        <td>
+                        <button className='edit_button' onClick={() => handleEditClick(row)}>Edit</button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -206,6 +217,11 @@ function AdminDashboard() {
           </div>
         </div>
       </div>
+      {showEditPopup && <EditAppointment  appointment={selectedAppointment}
+          onClose={() => setShowEditPopup(false)}
+          appointmentId={selectedAppointment.id} // Pass the appointment ID as a prop
+          appointmentName={selectedAppointment.customer_name} // Pass the appointment name as a prop
+          appointmentPhone={selectedAppointment.mobile_no} />}
     </div>
   );
 }

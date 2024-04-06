@@ -34,7 +34,7 @@ function AddServicePopup({ onClose }) {
       setPopupMessage("Service added successfully!");
       setShowPopup(true);
       onClose();
-
+      window.location.reload();
     })
     .catch((err) => {
       setPopupMessage("Failed to add service.");
