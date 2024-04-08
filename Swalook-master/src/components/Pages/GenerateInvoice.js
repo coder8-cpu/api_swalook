@@ -9,8 +9,17 @@ import invoiceImg from '../../assets/invoice.png'
 import {Link} from 'react-router-dom'
 import { Helmet } from 'react-helmet';
 
+function getCurrentDate() {
+  const currentDate = new Date();
+  const day = currentDate.getDate();
+  const month = currentDate.getMonth() + 1;
+  const year = currentDate.getFullYear().toString().slice(-2);
+  return `${day}/${month}/${year}`;
+}
+
 function GenerateInvoice() {
   const navigate = useNavigate();
+    const currentDate = getCurrentDate();
    const [serviceOptions, setServiceOptions] = useState([]);
    const [customer_name , setCustomerName] = useState('');
    const [email , setEmail] = useState('');
@@ -166,7 +175,25 @@ function GenerateInvoice() {
                 </div>
             </div>
             <div className='gb_right'>
-            {/* <img src={invoiceImg} alt="Invoice" className='invoice_img' /> */}
+            <h2 className='gb_appoint'>Billing:({currentDate})</h2>
+            <hr className='gb_hr'/>
+            <div class='gb_table_wrapper'>
+        <table class='gb_table'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Mobile No.</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Services</th>
+                    <th>View Invoice</th>
+                </tr>
+            </thead>
+            <tbody>
+                   
+            </tbody>
+        </table>
+    </div>
             </div>
         </div>
         </div>
