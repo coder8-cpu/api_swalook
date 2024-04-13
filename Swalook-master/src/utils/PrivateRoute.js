@@ -5,7 +5,7 @@ const PrivateRoute = () => {
     const isLoggedIn = Cookies.get('loggedIn');
     return (
         <>
-        {isLoggedIn ? <Outlet /> : <Navigate to= "/admin" />}
+        {isLoggedIn ? <Outlet /> : <Navigate to= "/" />}
         </>
     )
 }

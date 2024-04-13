@@ -12,15 +12,6 @@ import Popup from './Popup';
 import { Helmet } from 'react-helmet';
 
 function Invoice() {
-  // const componentRef = useRef();
-  
-  // const handlePrint = useReactToPrint({
-  //   content: () => componentRef.current,
-  //   documentTitle: false,
-  //   pageStyle: "@page { size: A4 potrait; margin: 20mm; }",
-  //   overflowStyle: "overflow-x: auto",
-  //   onAfterPrint: () => alert("Print success!"),
-  // });
 
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false); 
@@ -105,6 +96,8 @@ function Invoice() {
   const [total_cgst, setTotalCGST] = useState(0);
   const [total_sgst, setTotalSGST] = useState(0);
   const [grand_total, setGrandTotal] = useState(0);
+
+  const [invoice , setInvoice] = useState([]);
 
   const grandTotalInWords = numberToWords(parseFloat(grand_total));
 
@@ -232,7 +225,21 @@ useEffect(() => {
     setTotalAmts(newTotalAmts);
   }
 
+  
+
   const handleGenerateInvoice = (e) => {
+    const newInvoice = services.map((service, index) => ({
+          Description: service.value,
+          Price: prices[index],
+          Quantity: quantities[index],
+          Discount: discounts[index],
+          Tax_amt: taxes[index],
+          CGST: cgst[index],
+          SGST: sgst[index],
+          Total_amount: totalAmts[index],
+        }));
+        setInvoice(newInvoice);
+        console.log(newInvoice);
     e.preventDefault();
     const token = localStorage.getItem('token');
     console.log(token);
@@ -269,14 +276,18 @@ useEffect(() => {
         console.log('Invoice generated successfully:', response.data);
         // alert('Invoice generated successfully');
       })
-
+      
+      
+      
       .catch(error => {
         // Handle error
         setPopupMessage('Error generating invoice');
         setShowPopup(true);
         console.error('Error generating invoice:', error);
       });
-  };
+    };
+
+    console.log('Invoice:' , invoice);
 
   const [getInvoiceId , setInvoiceId] = useState('');
   useEffect(() => {

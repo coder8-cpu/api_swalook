@@ -7,8 +7,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import VertNav from './VertNav.js';
 import { Helmet } from 'react-helmet';
 import EditAppointment from './EditAppointment.js';
+import { useNavigate } from 'react-router-dom';
 
 function AdminDashboard() {
+  const navigate = useNavigate();
   const [originalData, setOriginalData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');

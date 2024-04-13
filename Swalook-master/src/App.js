@@ -14,6 +14,7 @@ import Invoice from './components/Pages/Invoice';
 import ForgetPassword from './components/Pages/ForgetPassword';
 import Cookies from 'js-cookie';
 import PrivateRoute from './utils/PrivateRoute';
+import ViewInvoice from './components/Pages/ViewInvoice';
 
 function App() {
   const isLoggedIn = Cookies.get('loggedIn');
@@ -40,6 +41,7 @@ function App() {
             <Route path="/appointment" element={<Appointment />} />
             <Route path="/generatebill" element={<GenerateInvoice />} />
             <Route path="/invoice" element={<Invoice />} />
+            <Route path="/viewinvoice" element={<ViewInvoice />} />
           </Route>
           <Route path="/forgetpassword" element={<ForgetPassword />} />
         </Routes>
