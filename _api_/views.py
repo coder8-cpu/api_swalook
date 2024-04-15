@@ -466,3 +466,17 @@ class get_current_user_profile(APIView):
             "current_user_data":serializer_data.data,
 
         })
+
+class get_present_day_bill(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self,request):
+        data = VendorInvoice.objects.filter(date=dt.date.today())
+        serializer_data = billing_serailizer(data,many=True)
+        return Response({
+            "status":True,
+            "current_user_data":serializer_data.data,
+
+        })
+
+
