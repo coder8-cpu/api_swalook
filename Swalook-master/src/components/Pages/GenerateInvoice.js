@@ -98,6 +98,26 @@ function GenerateInvoice() {
       }); 
       console.log(customer_name , email , mobile_no , address , GBselectedServices , service_by , discount , isGST , gst_number);
   };
+
+  const [get_persent_day_bill, setGet_persent_day_bill] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    axios.get("http://89.116.32.12:8000/api/swalook/get_present_day_bill/",{
+      headers:{
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((res)=>{
+      // console.log(res.data.current_user_data);
+      setGet_persent_day_bill(res.data.current_user_data);
+      console.log(get_persent_day_bill);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  },[]);
   return (
     <div className='gb_dash_main'>
       <Helmet>
@@ -190,7 +210,24 @@ function GenerateInvoice() {
                 </tr>
             </thead>
             <tbody>
-                   
+            {get_persent_day_bill.map((item, index) => (
+                        <tr key={index}>
+                            <td>{item.customer_name}</td>
+                            <td>{item.mobile_no}</td>
+                            <td>{item.grand_total}</td>
+                            <td>Date</td>
+                            <td>
+                            {item.services.split(',').length > 1 ? (
+                            <select className='status-dropdown'>
+                              {item.services.split(',').map((service, index) => (
+                                <option key={index} value={service}>{service}</option>
+                              ))}
+                            </select>
+                          ) : item.services.split(',')[0]}
+                            </td>
+                            <td><button>View</button></td>
+                        </tr>
+                    ))}
             </tbody>
         </table>
     </div>
