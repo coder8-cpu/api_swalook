@@ -472,7 +472,7 @@ class get_present_day_bill(APIView):
     
     def get(self,request):
         data = VendorInvoice.objects.filter(date=dt.date.today())
-        serializer_data = billing_serializer(data,many=True)
+        serializer_data = billing_serailizer(data,many=True)
         return Response({
             "status":True,
             "current_user_data":serializer_data.data,
