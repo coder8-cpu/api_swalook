@@ -43,7 +43,7 @@ urlpatterns = [
     path('api/swalook/get_specific_slno/',get_slno.as_view()),
     path('api/swalook/get_current_user/<id>/',get_current_user_profile.as_view()),
  
-    path('api/swalook/get_current_date_bill/',get_current_date_bill_data.as_view()),
+    path('api/swalook/get_present_day_bill/',get_current_date_bill.as_view()),
 
 
 
