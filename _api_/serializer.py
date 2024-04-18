@@ -118,6 +118,10 @@ class billing_serailizer(serializers.ModelSerializer):
 
         return super().create(validated_data)
     
+class billing_serailizer(serializers.ModelSerializer):
+    class Meta:
+        model = VendorInvoice
+        fields = "__all__"
 
 class appointment_serializer(serializers.ModelSerializer):
     class Meta:
