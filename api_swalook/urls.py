@@ -44,6 +44,7 @@ urlpatterns = [
     path('api/swalook/get_current_user/<id>/',get_current_user_profile.as_view()),
  
     path('api/swalook/get_present_day_bill/',get_present_day_bill.as_view()),
+    path('api/swalook/get_bill_data/<id>/',get__bill.as_view()),
 
 
 
