@@ -3,9 +3,14 @@ import axios from 'axios';
 import '../Styles/showInvoice.css'
 import { Helmet } from 'react-helmet';
 import numberToWords from './NumberToWords';
+import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Logo1 from '../../assets/S_logo.png'
 
-function showInvoice() {
+function ViewInvoice() {
+  const { id } = useParams();
+  console.log(id);
+
   return (
     <div className='invoice_container'>
     <Helmet>
@@ -105,4 +110,4 @@ function showInvoice() {
   )
 }
 
-export default showInvoice
+export default ViewInvoice

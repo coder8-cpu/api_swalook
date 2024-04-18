@@ -118,6 +118,11 @@ function GenerateInvoice() {
       console.log(err);
     })
   },[]);
+
+  const handleShowInvoice = (id) => {
+    navigate(`/viewinvoice/${id}`);
+  };
+
   return (
     <div className='gb_dash_main'>
       <Helmet>
@@ -204,7 +209,6 @@ function GenerateInvoice() {
                     <th>Name</th>
                     <th>Mobile No.</th>
                     <th>Amount</th>
-                    <th>Date</th>
                     <th>Services</th>
                     <th>View Invoice</th>
                 </tr>
@@ -215,17 +219,41 @@ function GenerateInvoice() {
                             <td>{item.customer_name}</td>
                             <td>{item.mobile_no}</td>
                             <td>{item.grand_total}</td>
-                            <td>Date</td>
+                
                             <td>
-                            {item.services.split(',').length > 1 ? (
+                            {/* {item.services.split(',').length > 1 ? (
                             <select className='status-dropdown'>
                               {item.services.split(',').map((service, index) => (
                                 <option key={index} value={service}>{service}</option>
                               ))}
                             </select>
-                          ) : item.services.split(',')[0]}
+                          ) : item.services.split(',')[0]} */}
+
+                          
+{(() => {
+  try {
+    const servicesArray = JSON.parse(item.services);
+    if (servicesArray.length > 1) {
+      return (
+        <select className='status-dropdown'>
+          {servicesArray.map((service, index) => (
+            <option key={index} value={service.Description}>{service.Description}</option>
+          ))}
+        </select>
+      );
+    } else if (servicesArray.length === 1) {
+     
+      return <span>{servicesArray[0].Description}</span>;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error('JSON parsing error:', error);
+    return null;
+  }
+})()}
                             </td>
-                            <td><button>View</button></td>
+                            <td><button onClick={() => handleShowInvoice(item.id)}>View</button></td>
                         </tr>
                     ))}
             </tbody>

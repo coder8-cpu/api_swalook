@@ -239,7 +239,14 @@ useEffect(() => {
           Total_amount: totalAmts[index],
         }));
         setInvoice(newInvoice);
-        console.log(newInvoice);
+        console.log(JSON.stringify(newInvoice));
+
+        // const jsonString = JSON.stringify(newInvoice, (key, value) => {
+        //   if (typeof value === 'string') {
+        //     return `"${value}"`; // Wrap string values in double quotes
+        //   }
+        //   return value;
+        // });
 
     e.preventDefault();
     const token = localStorage.getItem('token');
@@ -249,7 +256,7 @@ useEffect(() => {
       mobile_no: mobile_no,
       email: email,
       // services: services.map(service => service.value) .toString(),
-      services: newInvoice,
+      services: JSON.stringify(newInvoice),
       address: address,
       service_by: service_by.map(service => service.value)
       .toString(),
@@ -291,6 +298,7 @@ useEffect(() => {
     };
 
     console.log('Invoice:' , invoice);
+    console.log('Invoice:json' , JSON.stringify(invoice));
 
   const [getInvoiceId , setInvoiceId] = useState('');
   useEffect(() => {

@@ -19,6 +19,7 @@ function AdminDashboard() {
   const [orginalBillData, setOriginalBillData] = useState([]);
   const [filteredBillData, setFilteredBillData] = useState([]);
   const [searchBillTerm, setSearchBillTerm] = useState('');
+  const [serviceDescriptions, setServiceDescriptions] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -30,6 +31,7 @@ function AdminDashboard() {
     })
       .then((res) => {
         console.log(res.data);
+
         setOriginalData(res.data.table_data);
         setFilteredData(res.data.table_data);
       })
@@ -89,6 +91,10 @@ function AdminDashboard() {
   const handleEditClick = (appointment) => {
     setSelectedAppointment(appointment);
     setShowEditPopup(true);
+  };
+
+  const handleShowInvoice = (id) => {
+    navigate(`/viewinvoice/${id}`);
   };
 
   return (
@@ -152,8 +158,8 @@ function AdminDashboard() {
                             </select>
                           ) : row.services.split(',')[0]}
                         </td>
+
                         <td>{row.mobile_no}</td>
-                        {/* <td><button className='edit_button'>Edit</button></td> */}
                         <td>
                         <button className='edit_button' onClick={() => handleEditClick(row)}>Edit</button>
                         </td>
@@ -199,18 +205,43 @@ function AdminDashboard() {
                       <td>{row.customer_name}</td>
                       <td>{row.mobile_no}</td>
                       <td>{row.grand_total}</td>
-                      <td>14/4/23</td>
+                      <td>{row.date}</td>
                       {/* <td>{row.services}</td> */}
                       <td>
-                        {row.services.split(',').length > 1 ? (
+                        {/* {row.services.split(',').length > 1 ? (
                           <select className='status-dropdown'>
                             {row.services.split(',').map((service, index) => (
                               <option key={index} value={service}>{service}</option>
                             ))}
                           </select>
-                        ) : row.services.split(',')[0]}
+                        ) : row.services.split(',')[0]} */}
+
+{(() => {
+  try {
+    const servicesArray = JSON.parse(row.services);
+    if (servicesArray.length > 1) {
+      return (
+        <select className='status-dropdown'>
+          {servicesArray.map((service, index) => (
+            <option key={index} value={service.Description}>{service.Description}</option>
+          ))}
+        </select>
+      );
+    } else if (servicesArray.length === 1) {
+     
+      return <span>{servicesArray[0].Description}</span>;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error('JSON parsing error:', error);
+    return null;
+  }
+})()}
+
+
                       </td>
-                      <td><button className='invoice_button'>Show Invoice</button></td>
+                      <td><button className='invoice_button' onClick={() => handleShowInvoice(row.id)}>Show Invoice</button></td>
                     </tr>
                   ))}
                 </tbody>

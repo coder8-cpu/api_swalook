@@ -41,7 +41,7 @@ function App() {
             <Route path="/appointment" element={<Appointment />} />
             <Route path="/generatebill" element={<GenerateInvoice />} />
             <Route path="/invoice" element={<Invoice />} />
-            <Route path="/viewinvoice" element={<ViewInvoice />} />
+            <Route path="/viewinvoice/:id" element={<ViewInvoice />} />
           </Route>
           <Route path="/forgetpassword" element={<ForgetPassword />} />
         </Routes>
