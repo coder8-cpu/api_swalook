@@ -256,7 +256,7 @@ class vendor_billing(CreateAPIView,ListAPIView,):
       
         query_set = VendorInvoice.objects.filter(vendor_name=request.user)[::-1]
         query_set_salon_name = SwalookUserProfile.objects.get(mobile_no=str(request.user))
-        serializer_obj = billing_serailizer(query_set,many=True)
+        serializer_obj = billing_serailizer_get(query_set,many=True)
         return Response({
             "status":True,
             "table_data":serializer_obj.data,
@@ -472,11 +472,22 @@ class get_present_day_bill(APIView):
     
     def get(self,request):
         data = VendorInvoice.objects.filter(date=dt.date.today())
-        serializer_data = billing_serailizer(data,many=True)
+        serializer_data = billing_serailizer_get(data,many=True)
         return Response({
             "status":True,
             "current_user_data":serializer_data.data,
 
         })
 
+class get__bill(APIView):
+    permission_classes = [IsAuthenticated]
 
+    
+    def get(self,request,id):
+        data = VendorInvoice.objects.get(id=id)[::-1]
+        serializer_data = billing_serailizer_get(data)
+        return Response({
+            "status":True,
+            "current_user_data":serializer_data.data,
+
+        })
