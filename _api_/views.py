@@ -481,11 +481,11 @@ class get_present_day_bill(APIView):
 
 class get__bill(APIView):
     permission_classes = [IsAuthenticated]
-     permission_classes = [IsAuthenticated]
+
     
-    def get(self,request):
-        data = VendorInvoice.objects.filter(vendor_name=request.user)[::-1]
-        serializer_data = billing_serailizer_get(data,many=True)
+    def get(self,request,id):
+        data = VendorInvoice.objects.get(id=id)[::-1]
+        serializer_data = billing_serailizer_get(data)
         return Response({
             "status":True,
             "current_user_data":serializer_data.data,
