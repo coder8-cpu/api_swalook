@@ -71,6 +71,7 @@ class VendorInvoice(models.Model):
     total_tax          = models.DecimalField (default=0,null=True,      blank=True,     decimal_places=2, max_digits=100)
     total_discount     = models.DecimalField (null=True,      blank=True,     decimal_places=2, max_digits=100,default=0)
     gst_number         = models.CharField    (max_length=20,  blank=True,     null=True) # device limit
+    services           = models.CharField    (max_length=1000000,  blank=True,     null=True) # device limit
     total_quantity     = models.IntegerField (default=0)
     total_cgst         = models.DecimalField (default=0,null=True,      blank=True,     decimal_places=2, max_digits=100)
     total_sgst         = models.DecimalField (default=0,null=True,      blank=True,     decimal_places=2, max_digits=100)
