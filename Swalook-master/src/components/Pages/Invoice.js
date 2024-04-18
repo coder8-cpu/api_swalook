@@ -240,6 +240,7 @@ useEffect(() => {
         }));
         setInvoice(newInvoice);
         console.log(newInvoice);
+
     e.preventDefault();
     const token = localStorage.getItem('token');
     console.log(token);
@@ -247,7 +248,8 @@ useEffect(() => {
       customer_name: customer_name,
       mobile_no: mobile_no,
       email: email,
-      services: services.map(service => service.value) .toString(),
+      // services: services.map(service => service.value) .toString(),
+      services: newInvoice,
       address: address,
       service_by: service_by.map(service => service.value)
       .toString(),
@@ -259,6 +261,7 @@ useEffect(() => {
       total_cgst: total_cgst,
       total_sgst: total_sgst,
       gst_number: gst_number,
+      
     };
     console.log(data);
 
