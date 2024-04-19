@@ -484,8 +484,8 @@ class get__bill(APIView):
 
     
     def get(self,request,id):
-        data = VendorInvoice.objects.get(id=id)[::-1]
-        serializer_data = billing_serailizer_get(data)
+        data = VendorInvoice.objects.filter(id=id)
+        serializer_data = billing_serailizer_get(data,many=True)
         return Response({
             "status":True,
             "current_user_data":serializer_data.data,
