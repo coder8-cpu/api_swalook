@@ -10,7 +10,29 @@ import Logo1 from '../../assets/S_logo.png'
 function ViewInvoice() {
   const { id } = useParams();
   console.log(id);
+  const saloon_name = localStorage.getItem('saloon_name');
+  const [invoiceData, setInvoiceData] = useState({});
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    axios.get(`http://89.116.32.12:8000/api/swalook/get_bill_data/${id}/`, {
+      headers: {
+        'Authorization': `Token ${token}`
+      }
+    })
+      .then((res) => {
+        console.log(res.data.current_user_data[0]);
+        setInvoiceData(res.data.current_user_data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
 
+  const isGST = invoiceData.gst_number ? true : false;
+  
+   const grandTotalInWords = numberToWords(parseFloat(invoiceData.grand_total));
+
+   const services = invoiceData.services ? JSON.parse(invoiceData.services) : [];
   return (
     <div className='invoice_container'>
     <Helmet>
@@ -21,26 +43,26 @@ function ViewInvoice() {
         <div>
       <div className='invoice_header'>
         <img src={Logo1} alt='Logo' className='invoice_logo' />
-        <div className='invoice_name'></div>
+        <div className='invoice_name'>{saloon_name}</div>
       </div>
       <div className='invoice_content'>
         <div className='invoice_left'>
           <h3>Invoice To:</h3>
-          <p></p>
-          <p></p>
-          <p></p>
+          <p>{invoiceData.customer_name}</p>
+          <p>{invoiceData.address}</p>
+          <p>{invoiceData.email}</p>
         </div>
         <div className='invoice_right'>
-          <h5>InvoiceId: </h5>
+          <h5>InvoiceId: {invoiceData.slno} </h5>
           <div className='invoice_date'>
-            <p>Date of Invoice: </p>
+            <p>Date of Invoice:  {invoiceData.date}  </p>
             <p></p>
           </div>
-          {/* {isGST ? ( */}
+          {isGST ? (
             <div className='invoice_gst'>
-              <p>GST Number: </p>
-            </div>
-         {/* ) : null} */}
+              <p>GST Number:{invoiceData.gst_number} </p>
+            </div> 
+          ) : null} 
         </div>
       </div>
 
@@ -60,34 +82,31 @@ function ViewInvoice() {
             </tr>
           </thead>
           <tbody>
-            {/* {services.map((service, index) => (
+           
+           {
+            services.map((item, index) => (
               <tr key={index} style={{ border: '1px solid #787871', padding: '3px', backgroundColor: '#fff' }}>
-                <td scope='col' style={{ textAlign: 'center' }}>{index + 1}</td>
-                <td scope='col' className='text-center' style={{ textAlign: 'center' }}></td>
-                <td scope='col' className='text-center' style={{ textAlign: 'center' }}>
-                  <input type='text' className='editable-field' id={`price_input_${index}`} />
-                </td>
-                <td scope='col' className='text-center' style={{ textAlign: 'center' }}>
-                  <input type='text' className='editable-field' id={`quantity_input_${index}`}/>
-                </td>
-                <td scope='col' className='text-center' style={{ textAlign: 'center' }}>
-                  <input type='text' className='editable-field' id={`discount_input_${index}`} />
-                </td>
-                <td scope='col' className='text-center' style={{ textAlign: 'center' }}></td>
-                <td scope='col' className='text-center' style={{ textAlign: 'center' }} ></td>
-                <td scope='col' className='text-center' style={{ textAlign: 'center' }}></td>
-                <td scope='col' style={{ width: '20%', color: 'black', textAlign: 'center' }} ></td>
+                <td style={{ width: '5%', padding: '0.7%' }} className='text-center'>{index + 1}</td>
+                <td style={{ width: '30%', padding: '0.7%' }} className='text-center'>{item.Description}</td>
+                <td style={{ width: '10%', padding: '0.7%' }} className='text-center'>{item.Price}</td>
+                <td style={{ width: '10%', padding: '0.7%' }} className='text-center'>{item.Quantity}</td>
+                <td style={{ width: '10%', padding: '0.7%' }} className='text-center'>{item.Discount}</td>
+                <td style={{ width: '10%', padding: '0.7%' }} className='text-center'>{item.Tax_amt}</td>
+                <td style={{ width: '10%', padding: '0.7%' }} className='text-center'>{item.CGST}</td>
+                <td style={{ width: '10%', padding: '0.7%' }} className='text-center'>{item.SGST}</td>
+                <td style={{ width: '10%', padding: '0.7%' }} className='text-center'>{item.Total_amount}</td>
               </tr>
-            ))} */}
+            ))
+           }
             <tr style={{ border: '1px solid #787871', padding: '3px', backgroundColor: '#fff' }}>
               <th colSpan='2' style={{ width: '20%', color: 'white', fontWeight: 500, fontSize: 15, backgroundColor: '#0d6efd' }}>TOTAL</th>
-              <th style={{ width: '5%', padding: '0.7%' }} className='text-center'></th>
-              <th style={{ width: '10%', padding: '0.7%' }} className='text-center'></th>
-              <th style={{ width: '10%', padding: '0.7%' }} className='text-center'></th>
-              <th style={{ width: '10%', padding: '0.7%' }} className='text-center'></th>
-              <th style={{ width: '10%', padding: '0.7%' }} className='text-center'></th>
-              <th style={{ width: '10%', padding: '0.7%' }} className='text-center'></th>
-              <th style={{ width: '10%', padding: '0.7%', backgroundColor: '#0d6efd', color: 'white' }}></th>
+              <th style={{ width: '5%', padding: '0.7%' }} className='text-center'>{invoiceData.total_prise}</th>
+              <th style={{ width: '10%', padding: '0.7%' }} className='text-center'>{invoiceData.total_quantity}</th>
+              <th style={{ width: '10%', padding: '0.7%' }} className='text-center'>{invoiceData.total_discount}</th>
+              <th style={{ width: '10%', padding: '0.7%' }} className='text-center'>{invoiceData.total_tax}</th>
+              <th style={{ width: '10%', padding: '0.7%' }} className='text-center'>{invoiceData.total_cgst}</th>
+              <th style={{ width: '10%', padding: '0.7%' }} className='text-center'>{invoiceData.total_sgst}</th>
+              <th style={{ width: '10%', padding: '0.7%', backgroundColor: '#0d6efd', color: 'white' }}>{invoiceData.grand_total}</th>
             </tr>
           </tbody>
         </table>
@@ -96,11 +115,11 @@ function ViewInvoice() {
       <div className='invoice_footer'>
         <div className='invoice_footer_left'>
           <h4>Amount in Words:</h4>
-          <p> Rupees Only</p>
+          <p> {grandTotalInWords} Rupees Only</p>
         </div>
         <div className='invoice_footer_right'>
           <h4>FINAL VALUE:</h4>
-          <p>Rs </p>
+          <p>Rs {invoiceData.grand_total} </p>
         </div>
       </div>
       </div>

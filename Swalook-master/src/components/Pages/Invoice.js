@@ -284,6 +284,7 @@ useEffect(() => {
         setPopupMessage('Invoice generated successfully');
         setShowPopup(true);
         console.log('Invoice generated successfully:', response.data);
+        
         // alert('Invoice generated successfully');
       })
       

@@ -86,6 +86,10 @@
   .invoice_left p {
     margin: 5px 0;
   }
+
+  .text-center{
+    text-align: center;
+  }
   
   /* Style for 'Date of Invoice' label and date */
   .invoice_right h5 {
