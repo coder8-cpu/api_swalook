@@ -48,6 +48,7 @@ const showNavbar = () => {
 };
 
  return (
+  <div className='main-nav'>
     <nav className="navbar">
       <div className="navbar-left">
       <button className='nav-btn '>
@@ -100,6 +101,7 @@ const showNavbar = () => {
 
       </div>
     </nav>
+    </div>
  );
 }
 

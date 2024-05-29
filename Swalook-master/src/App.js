@@ -20,7 +20,7 @@ function App() {
   const isLoggedIn = Cookies.get('loggedIn');
   return (
     <div>
-      <Router>    
+      <Router>   
         <Routes>
           <Route path="/staff" element={<Login />} />
           {/* <Route path="/admin" element={<AdminLogin />} /> */}

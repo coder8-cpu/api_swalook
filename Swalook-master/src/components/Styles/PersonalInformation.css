@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .personal_information_container {
   background-color: white;
   width: 100%;
@@ -82,6 +86,7 @@
 }
 
 .pi_update_button {
+  font-family: 'Montserrat', sans-serif;
   background-color: transparent;
   color: #091a44;
   border: 2px solid #091a44;

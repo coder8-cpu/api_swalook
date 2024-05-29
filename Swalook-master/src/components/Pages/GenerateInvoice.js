@@ -8,6 +8,7 @@ import VertNav from './VertNav'
 import invoiceImg from '../../assets/invoice.png'
 import {Link} from 'react-router-dom'
 import { Helmet } from 'react-helmet';
+import config from '../../config';
 
 function getCurrentDate() {
   const currentDate = new Date();
@@ -33,7 +34,7 @@ function GenerateInvoice() {
 
     useEffect(() => {
       const token = localStorage.getItem('token');
-      fetch("http://89.116.32.12:8000/api/swalook/table/services/",{
+      fetch(`${config.apiUrl}/api/swalook/table/services/`,{
         headers:{
           'Authorization': `Token ${token}`,
           'Content-Type': 'application/json'
@@ -103,7 +104,7 @@ function GenerateInvoice() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get("http://89.116.32.12:8000/api/swalook/get_present_day_bill/",{
+    axios.get(`${config.apiUrl}/api/swalook/get_present_day_bill/`,{
       headers:{
         'Authorization': `Token ${token}`,
         'Content-Type': 'application/json'
@@ -139,22 +140,23 @@ function GenerateInvoice() {
             <div className='gb_left'>
                 <h2 className='GI'>Generate Invoice</h2>
                 <hr className='gb_hr'/>
+                <div className='gi_con'>
                 <h3 className='cd'>Customer Details</h3>
-                <div className="gbform-group">
+                <div className="gbform-group gb-name">
                 <label htmlFor="name">Name:</label>
                 <input type="text" id="name" className="gb_input-field" placeholder='Enter Full Name' required onChange={(e) => setCustomerName(e.target.value)}/>
                 </div>
-                <div className="gbform-group">
+                <div className="gbform-group gb-email">
                 <label htmlFor="email">Email:</label>
-                <input type="email" id="email" className="gb_input-field" placeholder='Enter Email Address' onChange={(e) => setEmail(e.target.value)}/>
+                <input type="email" id="email" className="gb_input-field email_gi" placeholder='Enter Email Address' onChange={(e) => setEmail(e.target.value)}/>
                 </div>
-                <div className="gbform-group">
+                <div className="gbform-group gb-phone">
                 <label htmlFor="phone">Phone:</label>
                 <input type="number" id="phone" className="gb_input-field" placeholder='Enter Mobile Number' required onChange={(e)=>setMobileNo(e.target.value)}/>
                 </div>
-                <div className="gbform-group">
+                <div className="gbform-group add_c">
                 <label htmlFor="address">Address:</label>
-                <textarea id="address" className="gb_input-field" placeholder='Enter Address' rows={3} onChange={(e)=>setAddress(e.target.value)}></textarea>
+                <input type="text" id="address" className="gb_input-field address_gi" placeholder='Enter Address' rows={3} onChange={(e)=>setAddress(e.target.value)}></input>
                 </div>
                 <h3 className='sts'>Select Services</h3>
                 <div className='gb_select-field-cont'>
@@ -185,16 +187,17 @@ function GenerateInvoice() {
                 <label htmlFor="discount" >Discount:</label>
                 <input type="number" id="discount" className="gb_input-field" placeholder='Discount (In Rupees)' onChange={(e)=>setDiscount(e.target.value)}/>
                 </div>
-                <div className="gbform-group">
+                <div className="gbform-group radio_gi">
                             <input type="radio" id="gstYes" name="gst" value="Yes" onChange={handleGSTChange} />
                             <label>GST Number?</label>
                         </div>
                         {isGST && (
                             <div className="gbform-group">
-                                <label htmlFor="gstNumber">GST Number:</label>
-                                <input type="text" id="gstNumber" className="gb_input-field" placeholder='Enter GST Number' required onChange={(e)=>setGSTNumber(e.target.value)} />
+                                <label htmlFor="gstNumber" style={{marginRight:'25px'}}>GST No:</label>
+                                <input type="number" id="gstNumber" className="gb_input-field" placeholder='Enter GST Number' required onChange={(e)=>setGSTNumber(e.target.value)} />
                             </div>
                         )}
+                        </div>
                 <div className='gb_btn_contain'>
                 <button className='gb_button' onClick={handleGenerateInvoice}>Generate Invoice</button>
                 </div>

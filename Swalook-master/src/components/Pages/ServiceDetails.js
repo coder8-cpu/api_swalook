@@ -6,6 +6,7 @@ import AddServicePopup from './AddServicePopup';
 import DeleteServicePopup from './DeleteServicePopup';
 import EditServicePopup from './EditServicePopup';
 import { Helmet } from 'react-helmet';
+import config from '../../config';
 
 function ServiceDetails() {
     const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
@@ -15,7 +16,7 @@ function ServiceDetails() {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        axios.get("http://89.116.32.12:8000/api/swalook/table/services/", {
+        axios.get(`${config.apiUrl}/api/swalook/table/services/`, {
             headers: {
                 'Authorization': `Token ${token}`,
                 'Content-Type': 'application/json'

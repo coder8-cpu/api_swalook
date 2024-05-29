@@ -10,6 +10,10 @@
      border-bottom-right-radius: 20px;
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .icon-container {
     position: relative;
     margin-bottom: 10px;

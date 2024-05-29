@@ -6,6 +6,7 @@ import numberToWords from './NumberToWords';
 import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Logo1 from '../../assets/S_logo.png'
+import config from '../../config';
 
 function ViewInvoice() {
   const { id } = useParams();
@@ -14,7 +15,7 @@ function ViewInvoice() {
   const [invoiceData, setInvoiceData] = useState({});
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get(`http://89.116.32.12:8000/api/swalook/get_bill_data/${id}/`, {
+    axios.get(`${config.apiUrl}/api/swalook/get_bill_data/${id}/`, {
       headers: {
         'Authorization': `Token ${token}`
       }

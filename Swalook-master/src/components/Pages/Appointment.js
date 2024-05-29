@@ -7,6 +7,7 @@ import Header from './Header'
 import VertNav from './VertNav'
 import Popup from './Popup';
 import { Helmet } from 'react-helmet';
+import config from '../../config';
 
 function getCurrentDate() {
   const currentDate = new Date();
@@ -34,7 +35,7 @@ function Appointment() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    fetch("http://89.116.32.12:8000/api/swalook/table/services/",{
+    fetch(`${config.apiUrl}/api/swalook/table/services/`,{
       headers:{
         'Authorization': `Token ${token}`,
         'Content-Type': 'application/json'
@@ -109,7 +110,7 @@ function Appointment() {
 
     console.log(customer_name, mobile_no, email, booking_date, booking_time, services);
     const token = localStorage.getItem('token');
-    axios.post("http://89.116.32.12:8000/api/swalook/appointment/",{
+    axios.post(`${config.apiUrl}/api/swalook/appointment/`,{
       customer_name: customer_name,
       mobile_no: mobile_no,
       email: email,
@@ -137,7 +138,7 @@ function Appointment() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get("http://89.116.32.12:8000/api/swalook/preset-day-appointment/", {
+    axios.get(`${config.apiUrl}/api/swalook/preset-day-appointment/`, {
       headers: {
         'Authorization': `Token ${token}`,
         'Content-Type': 'application/json'
@@ -168,18 +169,19 @@ function Appointment() {
         <form onSubmit={handleAddAppointment}>
         <h2 className='h_appoint'>Book Appointment</h2>
         <hr className='appoint_hr'/>
+        <div className='ba_con'>
         <h3 className='cd'>Customer Details</h3>
-        <div className="appointform-group">
+        <div className="appointform-group appoint-text">
                 <label htmlFor="name">Name:</label>
                 <input type="text" id="name" className="appoint_input-field" placeholder='Enter Full Name' required  onChange={(e)=> setCustomerName(e.target.value)}/>
         </div>
-        <div className="appointform-group">
+        <div className="appointform-group appoint-text">
                 <label htmlFor="email">Email:</label>
                 <input type="email" id="email" className="appoint_input-field" placeholder='Enter Email Address' onChange={(e)=>setEmail(e.target.value)}/>
         </div>
-        <div className="appointform-group">
+        <div className="appointform-group appoint-phone">
                 <label htmlFor="phone">Phone:</label>
-                <input type="number" id="phone" className="appoint_input-field" placeholder='Enter Mobile Number' required onChange={(e)=>setMobileNo(e.target.value )} maxLength={10}/>
+                <input type="text" id="phone" className="appoint_input-field" placeholder='Enter Mobile Number' required onChange={(e)=>setMobileNo(e.target.value )} maxLength={10}/>
         </div>
         <h3 className='sts'>Select the Service</h3>
         <div className='appoint_select-field-cont'>
@@ -195,11 +197,13 @@ function Appointment() {
             />
             </div>
         <h3 className='sch'>Schedule</h3>
+        </div>   
         <div className="schedule_form-group">
                 <label htmlFor="date" className="schedule_date-label">Date:</label>
                 {/* <input type="text" id="date" className="schedule_date-input" value={currentDate} readOnly /> */}
                 <input type='date' id='date' className='schedule_date-input' onChange={(e) => setBookingDate(e.target.value)} />
               </div>
+              
               <div className="schedule_time-selection">
                 <label htmlFor="hours" className="schedule_time-label">Time:</label>
                 <select id="hours" className="schedule_time-dropdown" onChange={handleTimeChange}>

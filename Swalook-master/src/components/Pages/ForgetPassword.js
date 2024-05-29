@@ -1,6 +1,7 @@
 import React from 'react'
 import '../Styles/ForgetPassword.css'
 import Logo1 from '../../assets/S_logo.png';
+import config from '../../config';
 
 function ForgetPassword() {
   return (

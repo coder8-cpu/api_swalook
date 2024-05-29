@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .appoint_horizontal{
     height: 100vh;
     display: flex;
@@ -76,6 +80,12 @@
   margin-top: 5px;
 }
 
+
+
+.appoint-text input{
+  margin-left: 5px;
+}
+
 .appoint_input-field[type="number"] {
   width: 50%;
   padding: 8px;
@@ -99,6 +109,8 @@
   display: block;
   margin-bottom: 5px;
 }
+
+
 
 .appoint_select-field-cont{
   width: 50%;
@@ -219,6 +231,7 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .appoint_submit-button:hover {
@@ -308,4 +321,13 @@
       box-sizing: border-box;
       margin-top: 5px;
     }
+
+    .ba_con{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    
 }

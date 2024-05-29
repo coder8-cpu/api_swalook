@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+}
 
 .edit-appoint_input-field {
   width: 50%;
@@ -155,6 +158,7 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .edit-appoint_submit-button:hover {

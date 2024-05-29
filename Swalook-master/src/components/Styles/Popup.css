@@ -12,6 +12,10 @@
     animation: popupFadeIn 0.5s ease; /* Animation for popup appearance */
   }
   
+  body {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
   .popup-content {
     background-color: #fff;
     padding: 20px;

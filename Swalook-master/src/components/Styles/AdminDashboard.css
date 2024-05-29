@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .horizontal-container {
     height: 100vh;
     display: flex;
@@ -280,9 +284,13 @@
   .content-body{
     display: flex;
     flex-direction: column;
+    height: 30vh;
+    width: 90vw;
   }
 
   .first_ad{
     display: none;
   }
-}
+
+  
+} 

@@ -4,9 +4,16 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .gb_horizontal{
   height: 90vh;
   display: flex;
+}
+.GI {
+  color: #091A44;
 }
 
 .gb_h1{
@@ -20,12 +27,17 @@
   background-color: #f1f1f1; 
   justify-content: space-around;
   height: 100vh;
+  transition: background-color 0.3s ease;
 }
 
 .gb_left{
   margin-top: 20px;
   width: 45%; 
   height: 90vh;
+}
+
+.gst_no label{
+  margin-right: 50px;
 }
 
 .gb_right {
@@ -78,6 +90,22 @@
   width: 80%; /* Adjusted width for select field containers */
 }
 
+.gb-email label{
+  margin-right: 30px;
+}
+
+.gb-name label{
+  margin-right: 28px;
+}
+
+.gb-phone label{
+  margin-right: 23px;
+}
+
+.gb-phone input{
+  height: 30px;
+}
+
 .sb{
   margin-left: 10px;
   margin-top: 10px;
@@ -88,12 +116,13 @@
 }
 
 .gb_btn_contain{
+  padding: 10px;
   display: flex;
   justify-content: center;
 }
 
 .gb_button {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   width: 60%; /* Adjusted button width for better display */
   padding: 10px 20px;
   font-size: 16px;
@@ -103,6 +132,7 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .gb_button:hover {
@@ -161,6 +191,8 @@
   padding: 10px;
 }
 
+
+
 @media only screen and (max-width: 768px) {
   .gb_right {
       display: none; /* Hide .gb_right div for mobile view */
@@ -172,5 +204,51 @@
 
   .gb_button {
       width: 60%; /* Adjusted button width for better display */
+  }
+
+  .gi_con{
+    padding: 10px;
+  }
+
+  .radio_gi{
+    margin-left: 10px;
+  }
+
+  .email_gi{
+    margin-left: 5px;
+  }
+
+  /* .address_gi{
+    margin-right: 5px;
+  } */
+
+  .gi_con{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+  }
+
+  .gb-name label{
+    margin-right: 33px;
+  }
+
+  .gb-email label{
+    margin-right: 30px;
+  }
+
+  .add_c label {
+    margin-left: 10px;
+    margin-top: 12px;
+    margin-right: 15px;
+    text-align: center;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+ 
+
+  .gb-phone label{
+    margin-right: 30px;
   }
 }

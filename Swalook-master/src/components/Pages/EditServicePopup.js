@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../Styles/EditServicePopup.css';
 import axios from 'axios';
 import Popup from './Popup';
+import config from '../../config';
 
 function EditServicePopup({ onClose, serviceData }) {
     const [serviceDuration, setServiceDuration] = useState('');
@@ -26,7 +27,7 @@ function EditServicePopup({ onClose, serviceData }) {
         };
 
         // Perform the POST request
-        axios.post(`http://89.116.32.12:8000/api/swalook/edit/services/${serviceData.id}/`, data, {
+        axios.post(`${config.apiUrl}/api/swalook/edit/services/${serviceData.id}/`, data, {
             headers: {
                 'Authorization': `Token ${token}`,
                 'Content-Type': 'application/json'

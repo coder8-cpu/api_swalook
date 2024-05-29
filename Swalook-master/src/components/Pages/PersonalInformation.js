@@ -3,13 +3,14 @@ import axios from 'axios'
 import '../Styles/PersonalInformation.css'
 import Header from './Header'
 import PI from '../../assets/PI.png'
+import config from '../../config'
 
 function PersonalInformation() {
   const [P , setPI] = useState('');
 
   const no = atob(localStorage.getItem('number'));
   useEffect(() =>{
-      axios.get(`http://89.116.32.12:8000/api/swalook/get_current_user/${no}/`,{
+      axios.get(`${config.apiUrl}/api/swalook/get_current_user/${no}/`,{
           headers: {
               Authorization: `Token ${localStorage.getItem('token')}`
           }

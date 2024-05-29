@@ -10,6 +10,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import Popup from './Popup';
 import { Helmet } from 'react-helmet';
+import config from '../../config';
 
 function Invoice() {
 
@@ -273,7 +274,7 @@ useEffect(() => {
     console.log(data);
 
     // Make the POST request
-    axios.post('http://89.116.32.12:8000/api/swalook/billing/', data ,{
+    axios.post(`${config.apiUrl}/api/swalook/billing/`, data ,{
       headers: {
         'Authorization': `Token ${token}`,
         'Content-Type': 'application/json'    
@@ -303,7 +304,7 @@ useEffect(() => {
 
   const [getInvoiceId , setInvoiceId] = useState('');
   useEffect(() => {
-    axios.get('http://89.116.32.12:8000/api/swalook/get_specific_slno/', {
+    axios.get(`${config.apiUrl}/api/swalook/get_specific_slno/`, {
       headers: {
         'Authorization': `Token ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'

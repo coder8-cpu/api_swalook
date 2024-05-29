@@ -4,6 +4,7 @@ import '../Styles/Login.css'
 import LoginImage from '../../assets/login_bg.png'
 import Logo1 from '../../assets/S_logo.png'
 import Logo from '../../assets/S_logo_1.png'
+import config from '../../config';
 
 function Login() {
     const navigate = useNavigate();

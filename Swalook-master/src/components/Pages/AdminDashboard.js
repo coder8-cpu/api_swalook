@@ -8,6 +8,7 @@ import VertNav from './VertNav.js';
 import { Helmet } from 'react-helmet';
 import EditAppointment from './EditAppointment.js';
 import { useNavigate } from 'react-router-dom';
+import config from '../../config.js';
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function AdminDashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get("http://89.116.32.12:8000/api/swalook/appointment/", {
+    axios.get(`${config.apiUrl}/api/swalook/appointment/`, {
       headers: {
         'Authorization': `Token ${token}`,
         'Content-Type': 'application/json'
@@ -54,7 +55,7 @@ function AdminDashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get("http://89.116.32.12:8000/api/swalook/billing/", {
+    axios.get(`${config.apiUrl}/api/swalook/billing/`, {
       headers: {
         'Authorization': `Token ${token}`,
         'Content-Type': 'application/json'

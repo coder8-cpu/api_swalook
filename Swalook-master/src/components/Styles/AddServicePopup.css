@@ -11,6 +11,10 @@
     justify-content: center;
     align-items: center; /* Center vertically and horizontally */
   }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+  }
   
   .popup_container {
     background-color: white;
@@ -83,6 +87,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
   }
   
   .sn_save_button:hover {

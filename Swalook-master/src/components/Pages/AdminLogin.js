@@ -6,6 +6,7 @@ import ForgetPassword from './ForgetPassword';
 import Logo1 from '../../assets/S_logo.png'
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import config from '../../config';
 
 
 function AdminLogin() {
@@ -17,7 +18,7 @@ function AdminLogin() {
     console.log(mobileno , password);
     e.preventDefault();
 
-    axios.post("http://89.116.32.12:8000/api/swalook/login/",{
+    axios.post(`${config.apiUrl}/api/swalook/login/`,{
       mobileno: mobileno,
       password: password
     })

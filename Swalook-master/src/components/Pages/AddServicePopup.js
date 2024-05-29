@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../Styles/AddServicePopup.css';
 import axios from 'axios';
 import Popup from './Popup';
+import config from '../../config';
 
 function AddServicePopup({ onClose }) {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function AddServicePopup({ onClose }) {
     console.log(service , service_price , service_duration);
     const token = localStorage.getItem('token');
    
-    axios.post("http://89.116.32.12:8000/api/swalook/add/services/",{
+    axios.post(`${config.apiUrl}/api/swalook/add/services/`,{
       service: service,
       service_price: service_price,
       service_duration: service_duration

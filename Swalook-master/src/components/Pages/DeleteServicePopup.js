@@ -3,7 +3,7 @@ import '../Styles/DeleteServicePopup.css'
 import Multiselect from 'multiselect-react-dropdown';
 import axios from 'axios';
 import Popup from './Popup';
-
+import config from '../../config';
 function DeleteServicePopup({onClose}) { 
   const [deleteSelectedServices, setDeleteSelectedServices] = useState([]);
   const [serviceOptions, setServiceOptions] = useState([]);
@@ -12,7 +12,7 @@ function DeleteServicePopup({onClose}) {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    fetch("http://89.116.32.12:8000/api/swalook/table/services/",{
+    fetch(`${config.apiUrl}/api/swalook/table/services/`,{
       headers:{
         'Authorization': `Token ${token}`,
         'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ function DeleteServicePopup({onClose}) {
     const token = localStorage.getItem('token');
     deleteSelectedServices.forEach(service => {
       console.log(`Deleting service with ID ${service.id}.`);
-      axios.get(`http://89.116.32.12:8000/api/swalook/delete/services/${service.id}/`, {
+      axios.get(`${config.apiUrl}/api/swalook/delete/services/${service.id}/`, {
         headers: {
           'Authorization': `Token ${token}`,
           'Content-Type': 'application/json'

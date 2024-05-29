@@ -4,7 +4,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import '../Styles/EditAppointment.css';
 import axios from 'axios';
 import Popup from './Popup';
-
+import config from '../../config';
 
 function EditAppointment({ onClose, appointmentId, appointmentName, appointmentPhone }) {
     const navigate = useNavigate();
@@ -24,7 +24,7 @@ function EditAppointment({ onClose, appointmentId, appointmentName, appointmentP
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        fetch("http://89.116.32.12:8000/api/swalook/table/services/",{
+        fetch(`${config.apiUrl}/api/swalook/table/services/`,{
           headers:{
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json'
@@ -70,7 +70,7 @@ function EditAppointment({ onClose, appointmentId, appointmentName, appointmentP
       const handleEditAppointment = (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
-        axios.post(`http://89.116.32.12:8000/api/swalook/edit/appointment/${appointmentId}/`,{
+        axios.post(`${config.apiUrl}/api/swalook/edit/appointment/${appointmentId}/`,{
             customer_name: appointmentName,
             mobile_no: appointmentPhone,
             email: email,

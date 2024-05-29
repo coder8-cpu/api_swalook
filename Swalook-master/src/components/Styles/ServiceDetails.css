@@ -84,6 +84,10 @@
     box-sizing: border-box;
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .service_details_header {
     display: flex;
     justify-content: space-between;
@@ -106,6 +110,7 @@
     cursor: pointer;
     width: 200px;
     margin-right: 20px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .add_service_button:hover,
