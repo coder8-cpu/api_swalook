@@ -12,6 +12,8 @@ body {
   display: flex;
   height: 100%;
   width: 100%;
+  padding: 20px;
+  justify-content: center;
 }
 
 .login_main > div {
@@ -83,6 +85,7 @@ button {
 .forgot-password a {
   color: #007bff;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .forgot-password a:hover {
@@ -137,18 +140,23 @@ button {
       flex-direction: column;
   }
 
+  .logo{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
   .left,
   .right {
       width: 100%;
+      margin-left: -30px;
   }
 
   .right {
       display: none; /* Hide .right for tablets */
   }
 
-  .left {
-      margin-top: 18vh; /* Adjust margin */
-  }
+  
 }
 
 /* For Phones */

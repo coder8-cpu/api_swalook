@@ -25,7 +25,7 @@ function Login() {
         <div className='login_main'>
             <div className='left'>
             <div className='form'>
-            <h1 className='login_head'>Login</h1>
+            <h1 className='login_head'>Staff Login</h1>
           <div className="input-group">
             <label htmlFor="phone-number">Phone Number:</label>
             <input
