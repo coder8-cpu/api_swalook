@@ -2,10 +2,14 @@ import React from 'react'
 import '../Styles/ForgetPassword.css'
 import Logo1 from '../../assets/S_logo.png';
 import config from '../../config';
+import { Helmet } from 'react-helmet';
 
 function ForgetPassword() {
   return (
     <div className='fg_container'>
+        <Helmet>
+        <title>ForgetPassword</title>
+      </Helmet>
         <div className='fg_main'> 
             <div className='fg_logo'> 
                 <img src={Logo1} alt="Logo" className='fg_logo_img' /> 

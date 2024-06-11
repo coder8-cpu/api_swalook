@@ -12,6 +12,10 @@ body {
   height: 90vh;
   display: flex;
 }
+
+.status-dropdown{
+  font-family: 'Montserrat', sans-serif;
+}
 .GI {
   color: #091A44;
 }

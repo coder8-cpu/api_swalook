@@ -96,6 +96,11 @@ function Appointment() {
     }
   };
 
+  const bname = atob(localStorage.getItem('branch_name'));
+
+  console.log(booking_time);
+  console.log(booking_date);
+
   const handleAddAppointment = (e) => {
     e.preventDefault();
     if (services.length === 0) {
@@ -110,7 +115,7 @@ function Appointment() {
 
     console.log(customer_name, mobile_no, email, booking_date, booking_time, services);
     const token = localStorage.getItem('token');
-    axios.post(`${config.apiUrl}/api/swalook/appointment/`,{
+    axios.post(`${config.apiUrl}/api/swalook/appointment/${bname}/`,{
       customer_name: customer_name,
       mobile_no: mobile_no,
       email: email,
@@ -152,6 +157,10 @@ function Appointment() {
         console.log(err);
       });
   }, []);
+
+  const branchName = localStorage.getItem('branch_name');
+  const sname = localStorage.getItem('s-name');
+
   return (
     <div className='appoint_dash_main'>
       <Helmet>
@@ -171,20 +180,23 @@ function Appointment() {
         <hr className='appoint_hr'/>
         <div className='ba_con'>
         <h3 className='cd'>Customer Details</h3>
+        <div className='app'>
         <div className="appointform-group appoint-text">
                 <label htmlFor="name">Name:</label>
                 <input type="text" id="name" className="appoint_input-field" placeholder='Enter Full Name' required  onChange={(e)=> setCustomerName(e.target.value)}/>
         </div>
-        <div className="appointform-group appoint-text">
+        <div className="appointform-group appoint-email">
                 <label htmlFor="email">Email:</label>
                 <input type="email" id="email" className="appoint_input-field" placeholder='Enter Email Address' onChange={(e)=>setEmail(e.target.value)}/>
         </div>
         <div className="appointform-group appoint-phone">
                 <label htmlFor="phone">Phone:</label>
-                <input type="text" id="phone" className="appoint_input-field" placeholder='Enter Mobile Number' required onChange={(e)=>setMobileNo(e.target.value )} maxLength={10}/>
+                <input type="number" id="phone" className="appoint_input-field" placeholder='Enter Mobile Number' required onChange={(e)=>setMobileNo(e.target.value )} maxLength={10}/>
+        </div>
         </div>
         <h3 className='sts'>Select the Service</h3>
         <div className='appoint_select-field-cont'>
+          <div className='ss'>
             <Multiselect
               options={serviceOptions}
               showSearch={true}
@@ -196,8 +208,11 @@ function Appointment() {
               showCheckbox={true}
             />
             </div>
+            </div>
         <h3 className='sch'>Schedule</h3>
         </div>   
+        <div className='ap-p-parent'>
+        <div className='ap-p'>
         <div className="schedule_form-group">
                 <label htmlFor="date" className="schedule_date-label">Date:</label>
                 {/* <input type="text" id="date" className="schedule_date-input" value={currentDate} readOnly /> */}
@@ -224,6 +239,8 @@ function Appointment() {
                   <option value="AM">AM</option>
                   <option value="PM">PM</option>
                 </select>
+              </div>
+              </div>
               </div>
               <div className="appoint-button-container">
               <button className="appoint_submit-button">Submit</button>
@@ -278,7 +295,7 @@ function Appointment() {
         </div>
     </div>
       </div>
-      {showPopup && <Popup message={popupMessage} onClose={() => { setShowPopup(false); navigate('/dashboard'); }} />}
+      {showPopup && <Popup message={popupMessage} onClose={() => { setShowPopup(false); navigate(`/${sname}/${branchName}/dashboard`); }} />}
     </div>
   )
 }

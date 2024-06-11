@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Link , useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../components/Styles/Header.css';
 import Logo from '../../assets/S_logo_1.png';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -11,67 +11,113 @@ import Cookies from 'js-cookie';
 import ServiceDetails from './ServiceDetails';
 import VertNav from './VertNav';
 
+const disabledStyle = {
+  pointerEvents: 'none',
+  cursor: 'not-allowed',
+  opacity: 0.5,
+};
+
 function Header() {
   const navRef = useRef();
+  const dropdownRef = useRef();
   const navigate = useNavigate();
- const [showDropdown, setShowDropdown] = useState(false);
- const inputFileRef = useRef(null);
- const [profileImage, setProfileImage] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const inputFileRef = useRef(null);
+  const [profileImage, setProfileImage] = useState("");
+  const branchName = localStorage.getItem('branch_name');
+  const sname = localStorage.getItem('s-name');
+  const userType = localStorage.getItem('type');
 
- const handleLogout = () => {
-  // Delete the 'loggedIn' cookie
-  Cookies.remove('loggedIn');
-  // Redirect to the login page
-  navigate('/');
-};
+  const handleLogout = () => {
+    const branchN = atob(localStorage.getItem('branch_name'));
+    // Delete the 'loggedIn' cookie
+    Cookies.remove('loggedIn');
+    // Redirect to the login 
+    if (userType === 'staff') {
+      navigate(`/${sname}/${branchN}/staff`);
+    } else if (userType === 'admin') {
+      navigate(`/${sname}/${branchN}/admin`);
+    } else {
+      navigate("/");
+    }
+  };
 
-const toggleDropdown = () => {
-  console.log('Dropdown clicked', showDropdown);
-  setShowDropdown(!showDropdown);
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
 
-};
- 
- const handleImageChange = (event) => {
+  const handleImageChange = (event) => {
     const file = event.target.files[0];
-    console.log(file);
-    setProfileImage(event.target.files[0]);
+    setProfileImage(file);
+  };
 
-};
+  const handleChooseImage = () => {
+    inputFileRef.current.click();
+  };
 
-const handleChooseImage = () => {
-  console.log('Choose image button clicked');
-  inputFileRef.current.click();
-};
- 
-const showNavbar = () => {
-  navRef.current.classList.toggle('responsive_nav');
-};
+  const showNavbar = () => {
+    navRef.current.classList.toggle('responsive_nav');
+  };
 
- return (
-  <div className='main-nav'>
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDropdown]);
+
+  return (
     <nav className="navbar">
       <div className="navbar-left">
-      <button className='nav-btn '>
-          <MenuIcon  onClick={showNavbar} sx={{ fontSize: '36px' }} />
+        <button className='nav-btn ' onClick={showNavbar}>
+          <MenuIcon sx={{ fontSize: '36px' }} />
         </button>
         <img src={Logo} alt="Logo" className="header_logo" />
-
       </div>
       <div>
-      <div className="navbar-center" ref={navRef}>
-        <button className="nav-button"><Link to="/dashboard" className="nav-link">Home</Link></button>
-        <button className="nav-button"><Link to="/service" className="nav-link">Service</Link></button>
-        <button className="nav-button"><Link to="/settings" className="nav-link">Settings</Link></button>
-        <button className="nav-button"><Link to="/24*7" className="nav-link">24*7</Link></button>
-        <button className='nav-btn nav-close-btn'>
-        <CloseIcon onClick={showNavbar} sx={{ fontSize: '36px' }} />
-        </button>
+        <div className="navbar-center" ref={navRef}>
+          <button className="nav-button">
+            <Link to={userType === 'vendor' ? `/${sname}/owner` : `/${sname}/${branchName}/dashboard`} className="nav-link">Home</Link>
+          </button>
+          {(userType === 'staff' || userType === 'vendor') ? (
+            <button className="nav-button" style={disabledStyle}>
+              <span className="nav-link">Service</span>
+            </button>
+          ) : (
+            <button className="nav-button">
+              <Link to={`/${sname}/${branchName}/service`} className="nav-link">Service</Link>
+            </button>
+          )}
+          {(userType === 'staff' || userType === 'vendor') ? (
+            <button className="nav-button" style={disabledStyle}>
+              <span className="nav-link">Settings</span>
+            </button>
+          ) : (
+            <button className="nav-button">
+              <Link to={`/${sname}/${branchName}/settings`} className="nav-link">Settings</Link>
+            </button>
+          )}
+          <button className="nav-button">
+            <Link to="/24*7" className="nav-link">Help</Link>
+          </button>
+          <button className='nav-btn nav-close-btn'>
+            <CloseIcon onClick={showNavbar} sx={{ fontSize: '36px' }} />
+          </button>
+        </div>
       </div>
-      
-      </div>
-       
       <div className="navbar-right">
-        <div className="user-photo"  onClick={toggleDropdown}>
+        <div className="user-photo" onClick={toggleDropdown}>
           {profileImage ? (
             <img src={URL.createObjectURL(profileImage)} alt="Profile" className="profile-image" />
           ) : (
@@ -79,30 +125,28 @@ const showNavbar = () => {
           )}
           <div className="down-arrow"></div>
           {showDropdown && (
-            <div className="dropdown-menu">
+            <div className="dropdown-menu" ref={dropdownRef}>
               <div className="dropdown-item" onClick={handleChooseImage}>
                 <PersonAddIcon sx={{ marginRight: '5px', verticalAlign: 'middle' }} />
                 <span style={{ verticalAlign: 'middle' }}>Change Profile Picture</span>
                 <input
-                 type="file"
-                 accept="image/png, image/jpeg"
-                 onChange={handleImageChange}
-                 ref={inputFileRef}
-                 style={{ display: 'none' }}
+                  type="file"
+                  accept="image/png, image/jpeg"
+                  onChange={handleImageChange}
+                  ref={inputFileRef}
+                  style={{ display: 'none' }}
                 />
               </div>
-              <div className="dropdown-item"  onClick={handleLogout}>
+              <div className="dropdown-item" onClick={handleLogout}>
                 <LogoutIcon sx={{ marginRight: '5px', verticalAlign: 'middle' }} />
                 <span style={{ verticalAlign: 'middle' }}>LogOut</span>
               </div>
             </div>
           )}
         </div>
-
       </div>
     </nav>
-    </div>
- );
+  );
 }
 
 export default Header;

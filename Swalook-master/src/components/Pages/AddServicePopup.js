@@ -13,6 +13,9 @@ function AddServicePopup({ onClose }) {
   const [showPopup, setShowPopup] = useState(false); 
   const [popupMessage, setPopupMessage] = useState('');
   
+  const branchName = localStorage.getItem('branch_name');
+  const sname = localStorage.getItem('s-name');
+
   const handleAddService = (e) => {
     e.preventDefault();
     console.log(service , service_price , service_duration);
@@ -71,7 +74,7 @@ function AddServicePopup({ onClose }) {
         </div>
       </form>
     </div>
-    {showPopup && <Popup message={popupMessage} onClose={() => {setShowPopup(false); navigate('/service');} }/>}
+    {showPopup && <Popup message={popupMessage} onClose={() => {setShowPopup(false); navigate(`/${sname}/${branchName}/service`);} }/>}
   </div>
   );
 }

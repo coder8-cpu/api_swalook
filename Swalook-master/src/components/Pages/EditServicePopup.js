@@ -40,6 +40,7 @@ function EditServicePopup({ onClose, serviceData }) {
             setShowPopup(true);
             // alert("Service edited successfully!");
             onClose(); // Close the popup after successful editing
+            window.location.reload(); // Reload the page to reflect the changes
         })
         .catch((err) => {
             setPopupMessage("Failed to edit service.");

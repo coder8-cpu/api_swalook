@@ -8,6 +8,11 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+.blurred .first_ad {
+  filter: blur(10px);
+}
+
+
 .horizontal-container {
     height: 100vh;
     display: flex;
@@ -152,6 +157,7 @@ body {
   }
 
   .content-footer {
+    margin-top: 10px;
     margin-left: 10px;
     width: 98.5%;
     background-color: #fff; 
@@ -254,13 +260,15 @@ body {
   .content-box,
   .content-footer {
     margin-top: 20px; /* Add spacing between sections */
+  max-width: 80vw;
   }
 
   .content-box,
   .content-footer,
   .main-content {
-    width: 90%;
+    /* width: 90%; */
     padding: 10px; /* Adjust padding for smaller screens */
+
   }
 
   .content-box table,
@@ -295,5 +303,5 @@ body {
   .US-con{
     height: 20vh;
   }
-  
+ 
 } 

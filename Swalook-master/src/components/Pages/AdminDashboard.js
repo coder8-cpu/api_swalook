@@ -16,11 +16,15 @@ function AdminDashboard() {
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [saloonName, setSaloonName] = useState('');
-
+  const bname = atob(localStorage.getItem('branch_name'));
   const [orginalBillData, setOriginalBillData] = useState([]);
   const [filteredBillData, setFilteredBillData] = useState([]);
   const [searchBillTerm, setSearchBillTerm] = useState('');
   const [serviceDescriptions, setServiceDescriptions] = useState([]);
+
+  const branchName = localStorage.getItem('branch_name');
+  const sname = localStorage.getItem('s-name');
+  const userType = localStorage.getItem('type');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -95,13 +99,14 @@ function AdminDashboard() {
   };
 
   const handleShowInvoice = (id) => {
-    navigate(`/viewinvoice/${id}`);
+    navigate(`/${sname}/${branchName}/viewinvoice/${id}`);
   };
+
 
   return (
     <div className='Admin_dash_main'>
       <Helmet>
-        <title>Admin Dashboard</title>
+      <title>{userType === 'staff' ? 'Staff Dashboard' : 'Admin Dashboard'}</title>
       </Helmet>
       <Header />
       <div className='horizontal-container'>
@@ -110,9 +115,11 @@ function AdminDashboard() {
             <VertNav />
           </div>
         </div>
-        <div className='main-content'>
+        <div className={`main-content ${userType === 'staff' ? 'blurred' : ''}`}>
           <div className="content-header">
-            <h1 class="gradient-heading">Welcome, {saloonName}</h1>
+          <h1 className="gradient-heading">
+            Welcome {userType === 'admin' ? 'Admin' : 'Staff'}, {bname}!
+          </h1>
             <div className="US_search-bar">
               <input
                 type="text"
@@ -129,8 +136,8 @@ function AdminDashboard() {
               <h3>Sales Graph</h3>
               <img className='sales_img' src="path_to_your_image.jpg" alt="Sales Graph" />
             </div>
-            <div className="content-box">
-              <Link to="/appointment">  
+            <div className="content-box ">
+              <Link to={`/${sname}/${branchName}/appointment`}>  
               <h3>Appointments</h3>
               </Link>
               <div className='US-con'>
@@ -174,7 +181,7 @@ function AdminDashboard() {
 
           <div className="content-footer">
             <div className="f_top">
-              <Link to="/generatebill">
+              <Link to={`/${sname}/${branchName}/generatebill`}>
               <h3>Billing Table</h3>
               </Link>
               <div className="billing_search-bar">
@@ -197,7 +204,7 @@ function AdminDashboard() {
                     <th>Billing Amount</th>
                     <th>Date</th>
                     <th>Services</th>
-                    <th></th>
+                    <th>View</th>
                   </tr>
                 </thead>
                 <tbody>

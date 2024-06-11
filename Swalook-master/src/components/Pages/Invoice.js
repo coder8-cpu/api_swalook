@@ -176,11 +176,11 @@ useEffect(() => {
 }, [prices, quantities, discounts , cgst, sgst , totalAmts]);
 
 
-  const handlePriceBlur = (index, value) => {
-    const newPrices = [...prices];
-    newPrices[index] = parseFloat(value);
-    setPrices(newPrices);
-  };
+const handlePriceBlur = (index, value) => {
+  const newPrices = [...prices];
+  newPrices[index] = parseFloat(value);
+  setPrices(newPrices);
+};
 
   const handleQuantityBlur = (index, value) => {
     const newQuantities = [...quantities];
@@ -226,7 +226,7 @@ useEffect(() => {
     setTotalAmts(newTotalAmts);
   }
 
-  
+  const bname = atob(localStorage.getItem('branch_name'));
 
   const handleGenerateInvoice = (e) => {
     const newInvoice = services.map((service, index) => ({
@@ -269,7 +269,7 @@ useEffect(() => {
       total_cgst: total_cgst,
       total_sgst: total_sgst,
       gst_number: gst_number,
-      
+      vendor_branch_name: bname,
     };
     console.log(data);
 
@@ -325,6 +325,9 @@ useEffect(() => {
     setSaloonName(localStorage.getItem('saloon_name'));
   })
 
+  const branchName = localStorage.getItem('branch_name');
+  const sname = localStorage.getItem('s-name');
+
   return (
     <div className='invoice_container'>
       <Helmet>
@@ -379,13 +382,14 @@ useEffect(() => {
                   <td scope='col' style={{ textAlign: 'center' }}>{index + 1}</td>
                   <td scope='col' className='text-center' style={{ textAlign: 'center' }}>{service.value}</td>
                   <td scope='col' className='text-center' style={{ textAlign: 'center' }}>
-                    <input type='text' className='editable-field' id={`price_input_${index}`} value={prices[index]} onChange={(e) => handlePriceBlur(index, e.target.value)} />
+                    <input type='number' className='editable-field' id={`price_input_${index}`} value={prices[index]} onChange={(e) => handlePriceBlur(index, e.target.value)} />
+                  </td>
+                  
+                  <td scope='col' className='text-center' style={{ textAlign: 'center' }}>
+                    <input type='number' className='editable-field' id={`quantity_input_${index}`} defaultValue={1} onBlur={(e) => handleQuantityBlur(index, e.target.value)} />
                   </td>
                   <td scope='col' className='text-center' style={{ textAlign: 'center' }}>
-                    <input type='text' className='editable-field' id={`quantity_input_${index}`} defaultValue={1} onBlur={(e) => handleQuantityBlur(index, e.target.value)} />
-                  </td>
-                  <td scope='col' className='text-center' style={{ textAlign: 'center' }}>
-                    <input type='text' className='editable-field' id={`discount_input_${index}`} defaultValue={discounts[index] === null || discounts[index] === undefined ? 0 : discount}  onBlur={(e) => handleDiscountBlur(index, e.target.value)} />
+                    <input type='number' className='editable-field' id={`discount_input_${index}`} defaultValue={discounts[index] === null || discounts[index] === undefined ? 0 : discount}  onBlur={(e) => handleDiscountBlur(index, e.target.value)} />
                   </td>
                   <td scope='col' className='text-center' style={{ textAlign: 'center' }} onChange={(e) => handleTaxBlur(index, e.target.value)}>{taxes[index]}</td>
                   <td scope='col' className='text-center' style={{ textAlign: 'center' }} onChange={(e) => handleCGSTBlur(index, e.target.value)}>{cgst[index]}</td>
@@ -423,7 +427,7 @@ useEffect(() => {
         </div>
         </form>
       </div>
-      {showPopup && <Popup message={popupMessage} onClose={() => {setShowPopup(false); navigate('/dashboard');} }/>}
+      {showPopup && <Popup message={popupMessage} onClose={() => {setShowPopup(false); navigate(`/${sname}/${branchName}/dashboard`);} }/>}
     </div>
   );
 }

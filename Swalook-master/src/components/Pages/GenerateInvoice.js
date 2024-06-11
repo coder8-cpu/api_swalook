@@ -32,6 +32,10 @@ function GenerateInvoice() {
     const [isGST, setIsGST] = useState(false);
     const [gst_number, setGSTNumber] = useState('');
 
+    const branchName = localStorage.getItem('branch_name');
+const sname = localStorage.getItem('s-name');
+
+
     useEffect(() => {
       const token = localStorage.getItem('token');
       fetch(`${config.apiUrl}/api/swalook/table/services/`,{
@@ -84,7 +88,7 @@ function GenerateInvoice() {
         return;
       }
 
-      navigate('/invoice',{
+      navigate(`/${sname}/${branchName}/invoice`,{
         state: {
           customer_name,
           email,
@@ -121,7 +125,7 @@ function GenerateInvoice() {
   },[]);
 
   const handleShowInvoice = (id) => {
-    navigate(`/viewinvoice/${id}`);
+    navigate(`/${sname}/${branchName}/viewinvoice/${id}`);
   };
 
   return (

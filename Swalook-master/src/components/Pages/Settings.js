@@ -7,11 +7,13 @@ import HD from '../../assets/HD.png'
 import SY from '../../assets/SY.png'
 
 function Settings() {
+  const branchName = localStorage.getItem('branch_name');
+const sname = localStorage.getItem('s-name');
   return (
     <div className='settings_container'>
         <Header />
         <div className="content_container">
-        <Link to="/settings/personalInformation" className="settings_box" >
+        <Link to={`/${sname}/${branchName}/settings/personalInformation`} className="settings_box" >
           <img src={PI} alt="Personal Information" />
           <h2>Personal Information</h2>
           <p>Manage your account details</p>

@@ -64,6 +64,7 @@ body {
   color: #091A44;
   display: flex;
   text-align: left;
+  align-items: center;
   text-decoration: underline;
 }
 
@@ -86,7 +87,11 @@ body {
   margin-left: 5px;
 }
 
-.appoint_input-field[type="number"] {
+.appoint-email input{
+  margin-left: 7px;
+}
+
+.appoint_input-field[type="text"] {
   width: 50%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -95,6 +100,24 @@ body {
   margin-top: 5px;
 }
 
+.appoint_input-field[type="email"] {
+  width: 50%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+
+.appoint_input-field[type="number"] {
+  width: 50%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
 
 .appointform-group {
   display: flex;
@@ -118,7 +141,6 @@ body {
 
 .appoint_select-field {
   margin-top: 10px;
-  padding: 10px;
   margin-left: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -159,7 +181,7 @@ body {
 }
 
 .schedule_date-input {
-  width: 30%;
+  /* width: 30%; */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -302,6 +324,10 @@ body {
       margin-left: 10px;
         width: 100%;
     }
+
+    .schedule_date-input{
+      /* width: 60%; */
+    }
   
     .appoint_submit-button{
       width: 60%;
@@ -312,9 +338,39 @@ body {
       margin-left: -1px;
       box-shadow: none;
     }
+    
+    .ss{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .appoint_select-field{
+      width: 80%;
+     
+    }
 
     .appoint_input-field[type="number"] {
-      width: 50%;
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-top: 5px;
+    }
+
+    .appoint_input-field[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-top: 5px;
+    }
+
+    .appoint_input-field[type="email"] {
+      width: 100%;
       padding: 8px;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -329,5 +385,91 @@ body {
       align-items: center;
     }
 
+    .ap-p{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: left;
+    }
+
+    .ap-p-parent{
+      margin-left: 20px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .app{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: left;
+      
+    }
+
     
+}
+
+@media screen and (max-width: 480px) {
+  .appoint_input-field[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px;
+  }
+
+  .appoint_input-field[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px;
+  }
+
+  .appoint_input-field[type="email"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px;
+  }
+
+  .ba_con{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ap-p{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: left;
+  }
+
+  .ap-p-parent{
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .app{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: left;
+    
+  }
+
+  .appoint_select-field{
+    width: 100%;
+  }
 }
