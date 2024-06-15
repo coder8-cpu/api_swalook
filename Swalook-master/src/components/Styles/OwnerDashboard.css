@@ -172,6 +172,33 @@
   .billing-table tbody tr:hover {
     background-color: #f0f0f0;
   }
+
+  /* Add this to center text inside the dropdown */
+.status-dropdown {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+ 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  outline: none;
+  flex: 1;
+  width: 100%;
+  max-width: 300px; /* Adjust width as needed */
+  appearance: none; /* Remove default dropdown arrow */
+  -webkit-appearance: none; /* Remove default dropdown arrow for Safari */
+  -moz-appearance: none; /* Remove default dropdown arrow for Firefox */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140"><polygon points="0,0 140,0 70,70" fill="gray"/></svg>'); /* Custom dropdown arrow */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
+  text-align: center; /* Center text horizontally */
+}
+
+/* Ensure the text in span is also centered */
+.center-text {
+  text-align: center;
+}
+
   
   @media (max-width: 768px) {
     .owner-data-table,

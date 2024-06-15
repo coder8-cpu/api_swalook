@@ -1,54 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import '../Styles/AdminLogin.css';
+import '../Styles/Login.css';
 import { Helmet } from 'react-helmet';
-import { useNavigate, useParams } from 'react-router-dom'; // Import useParams
+import { useNavigate, useParams } from 'react-router-dom';
 import ForgetPassword from './ForgetPassword';
 import Logo1 from '../../assets/S_logo.png';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import LoginImage from '../../assets/login_bg.png';
+import Popup from './Popup';
 
 function Login() {
   const navigate = useNavigate();
-  const { admin_url } = useParams();
-  const params = useParams(); 
-  const burl = btoa(params.admin_url);
-  const sname = params.salon_name; 
-  localStorage.setItem('s-name', sname);
-  console.log(admin_url, sname);
+  const { admin_url, salon_name } = useParams();
+
+  const decodedAdminUrl = decodeURIComponent(admin_url).trim();
+  const decodedSname = decodeURIComponent(salon_name).trim();
+
+  const burl = btoa(decodedAdminUrl);
+  localStorage.setItem('s-name', decodedSname);
   const [isValid, setIsValid] = useState(false);
   const [mobileno, setMobileno] = useState('');
   const [password, setPassword] = useState('');
-  const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false);
+
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    if (Cookies.get('loggedIn')) {
-      setAlreadyLoggedIn(true);
-    } else {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(`https://api.crm.swalook.in/api/swalook/${sname}/${admin_url}/`);
-          if (response.data.status === true) {
-            console.log(response.data);
-            setIsValid(true);
-          } else {
-            setIsValid(false);
-          }
-        } catch (error) {
-          console.log(error);
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`https://api.crm.swalook.in/api/swalook/${decodedSname}/${decodedAdminUrl}/`);
+        if (response.data.status === true) {
+          setIsValid(true);
+        } else {
+          setIsValid(false);
         }
-      };
-      fetchData();
-    }
-  }, [sname, admin_url]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  useEffect(() => {
-    localStorage.setItem('branch_name', burl);
-  }, [admin_url]);
+    fetchData();
+  }, [decodedSname, decodedAdminUrl]);
 
   const handleAdminLogin = (e) => {
-    console.log(mobileno, password);
-    
     e.preventDefault();
+
+   
 
     axios.post('https://api.crm.swalook.in/api/swalook/staff/login/', {
       mobileno: mobileno,
@@ -57,10 +55,8 @@ function Login() {
     .then((res) => {
       if (res.data.text === 'login successfull !') {
         Cookies.set('loggedIn', 'true', { expires: 90 });
-        navigate(`/${sname}/${burl}/dashboard`); // Navigate to the dashboard with URL parameter
-        // alert('login successfull !');
+        navigate(`/${decodedSname}/${burl}/dashboard`);
         const token = res.data.token;
-
         const number = btoa(res.data.user);
         localStorage.setItem('token', token);
         localStorage.setItem('number', number);
@@ -70,34 +66,28 @@ function Login() {
     })
     .catch((err) => {
       console.log(err);
+      setErrorMessage('Invalid login credentials. Please check your credentials and try again.');
+      setShowError(true);
     });
   };
 
-  // const handleGoToStaffLogin = () => {
-  //   navigate('/staff');
-  // };
-
-  const handleResetPasswordClick = () => {
-    navigate('/forgetpassword');
+  const handleClosePopup = () => {
+    setShowError(false);
   };
 
   return (
-    <div className='Admin_login_container'>
+    <div className='staff_login_container'>
       <Helmet>
-        <title>Admin Login</title>
+        <title>Staff Login</title>
       </Helmet>
-      {alreadyLoggedIn ? (
-        <div>
-          <h1>Please logout from the other account before logging in.</h1>
-        </div>
-      ) : isValid ? (
-        <div className='admin_login_main'>
-          <div className='admin_left'>
-            <div className='admin_logo'>
-              <img className='admin_S_logo' src={Logo1} alt='Logo' />
+      {isValid ? (
+        <div className='staff_login_main'>
+          <div className='staff_left'>
+            <div className='staff_logo'>
+              <img className='staff_S_logo' src={Logo1} alt='Logo' />
             </div>
-            <div className='admin_form'>
-              <h1 className='admin_login_head'>Admin Login</h1>
+            <div className='staff_form'>
+              <h1 className='staff_login_head'>Staff Login</h1>
               <form onSubmit={handleAdminLogin}>
                 <div className='AL_input-group'>
                   <label htmlFor='phone-number'>Staff Name:</label>
@@ -121,29 +111,17 @@ function Login() {
                     required
                   />
                 </div>
-                <p className='forgot-password'>
-                  Forgot your password?{' '}
-                  <a onClick={handleResetPasswordClick}>Reset it</a>
-                </p>
                 <button type='submit'>Login</button>
               </form>
-
-              {/* <div className='l_al'>
-                <button
-                  className='Admin_L_button'
-                  onClick={handleGoToStaffLogin}
-                >
-                  Staff Login
-                </button>
-              </div> */}
             </div>
           </div>
-
-          <div className='admin_right'>
-            <div className='admin_loginbg'>
-              <div className='welcome_text'></div>
+          <div className='staff_right'>
+            <div className='staff_loginbg'>
+              {/* Render logout button if logged in */}
+             
             </div>
           </div>
+          {showError && <Popup message={errorMessage} onClose={handleClosePopup} />}
         </div>
       ) : (
         <div>

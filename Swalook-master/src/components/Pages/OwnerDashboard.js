@@ -139,28 +139,30 @@ function OwnerDashboard() {
                   <td className="center-text">{bill.mobile_no}</td>
                   <td className="center-text">{bill.total_prise - bill.total_discount}</td>
                   <td className="center-text">{bill.date}</td>
-                  <td className="center-text">{(() => {
-  try {
-    const servicesArray = JSON.parse(bill.services);
-    if (servicesArray.length > 1) {
-      return (
-        <select className='status-dropdown'>
-          {servicesArray.map((service, index) => (
-            <option key={index} value={service.Description}>{service.Description}</option>
-          ))}
-        </select>
-      );
-    } else if (servicesArray.length === 1) {
-     
-      return <span>{servicesArray[0].Description}</span>;
-    } else {
+                  <td className="center-text">
+  {(() => {
+    try {
+      const servicesArray = JSON.parse(bill.services);
+      if (servicesArray.length > 1) {
+        return (
+          <select className='status-dropdown'>
+            {servicesArray.map((service, index) => (
+              <option key={index} value={service.Description}>{service.Description}</option>
+            ))}
+          </select>
+        );
+      } else if (servicesArray.length === 1) {
+        return <span className="center-text">{servicesArray[0].Description}</span>;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('JSON parsing error:', error);
       return null;
     }
-  } catch (error) {
-    console.error('JSON parsing error:', error);
-    return null;
-  }
-})()}</td>
+  })()}
+</td>
+
                   <td className="center-text"><button>View</button></td>
                 </tr>
               ))}

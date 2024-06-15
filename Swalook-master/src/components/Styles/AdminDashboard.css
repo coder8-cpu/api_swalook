@@ -1,307 +1,305 @@
 *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+font-family: 'Montserrat', sans-serif;
 }
 
 .blurred .first_ad {
-  filter: blur(10px);
+filter: blur(10px);
 }
 
-
 .horizontal-container {
-    height: 100vh;
-    display: flex;
-  }
-  
+  height: 100vh;
+  display: flex;
+}
+
 .vertical-navigation {
-    flex: 0 0 70px; 
-    background-color: white; 
+  flex: 0 0 70px; 
+  background-color: white; 
 }
 
 .main-content {  
-    flex: 1; 
-    background-color: #f1f1f1; 
+  flex: 1; 
+  background-color: #f1f1f1; 
 }
 
 .invoice_button{
-  width: 200px;
+width: 200px;
 }
 
 .gradient-heading {
-  /* Option 1: Blue to Purple Gradient */
-  background-image: linear-gradient(to right, royalblue, #091A44);
-  background-size: 300% 100%;  /* Repeat background to create stripes */
-  background-position: -100%;  /* Start with gradient fully shifted to the left */
-  animation: move-gradient 3s ease-in infinite;
-
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+background-image: linear-gradient(to right, royalblue, #091A44);
+background-size: 300% 100%;
+background-position: -100%;
+animation: move-gradient 3s ease-in infinite;
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+color: transparent;
 }
 
 @keyframes move-gradient {
-  from {
-    background-position: 100%;
-  }
-  to {
-    background-position: -100%;
-  }
+from {
+  background-position: 100%;
+}
+to {
+  background-position: -100%;
+}
 }
 
 .content-header {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .content-header h2 {
-    margin: 0;
-  }
-  
-  .content-header input[type="text"] {
-    padding: 20px; 
-    border: none; 
-    border-radius: 20px;
-    background-color: #f0f0f0; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-    outline: none; 
-    width: 500px; 
-  }
-  
-  .content-header input[type="text"]:hover {
-    background-color: #e0e0e0;
-  }
-  
-  .content-header input[type="text"]:focus {
-    background-color: #fff; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
-  }
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
 
-  .US_search-bar {
-    display: flex;
-    align-items: center;
-  }
+.content-header h2 {
+  margin: 0;
+}
 
-  .US_search-icon {
-    margin-left: 10px;
-  }
+.content-header input[type="text"] {
+  padding: 20px; 
+  border: none; 
+  border-radius: 20px;
+  background-color: #f0f0f0; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+  outline: none; 
+  width: 500px; 
+}
 
-  .content-body {
-    padding: 10px;
-    display: flex;
-  }
+.content-header input[type="text"]:hover {
+  background-color: #e0e0e0;
+}
 
-  .content-box {
-    flex: 1; 
-    background-color: #fff; 
-    border-radius: 10px; 
-    padding: 20px;
-    margin-right: 20px; 
-    height: 50vh;
-  }
+.content-header input[type="text"]:focus {
+  background-color: #fff; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+}
 
-  .US-con {
-    max-height: 40vh; 
-    overflow-y: auto; 
-  }
-  
-  .content-box:last-child {
-    margin-right: 0; 
-  }
+.US_search-bar {
+  display: flex;
+  align-items: center;
+}
 
-  .sales_img {
-    max-width: 100%; 
-    height: auto;
-    display: block; 
-    margin-top: 20px; 
-  }
+.US_search-icon {
+  margin-left: 10px;
+}
 
-  .content-box table {
-    margin-top: 20px;
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+.content-body {
+  padding: 10px;
+  display: flex;
+}
 
-  .content-box th,
-  .content-box td {
-    padding: 12px;
-    text-align: left;
-  }
-  
-  .content-box th {
-    background-color: #f0f0f0;
-    font-weight: bold;
-  }
-  
-  .content-box tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .content-box tbody tr:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .content-box th:last-child,
-  .content-box td:last-child {
-    border-right: none;
-  }
+.content-box {
+  flex: 1; 
+  background-color: #fff; 
+  border-radius: 10px; 
+  padding: 20px;
+  margin-right: 20px; 
+  height: 50vh;
+}
 
-  .content-footer {
-    margin-top: 10px;
-    margin-left: 10px;
-    width: 98.5%;
-    background-color: #fff; 
-    border-radius: 10px;
-    padding: 20px; 
-    height: 30vh;
-  }
+.US-con {
+  max-height: 40vh; 
+  overflow-y: auto; 
+}
 
-  .search-Billing{
-    width: 20vw;
-    font-size: 16px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
+.content-box:last-child {
+  margin-right: 0; 
+}
 
-  .f_top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .billing_search-bar {
-    display: flex;
-    align-items: center;
-  }
-  
-  .billing_search-icon {
-    margin-left: 10px;
-  }
+.sales_img {
+  max-width: 100%; 
+  height: auto;
+  display: block; 
+  margin-top: 20px; 
+}
 
-  .BT-con {
-    max-height: 20vh;
-    overflow-y: auto;
-  }
+.content-box table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
+.content-box th,
+.content-box td {
+  padding: 12px;
+  text-align: center; /* Center align the text */
+  border: 1px solid #ddd; /* Add border for vertical lines */
+}
+
+.content-box th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.content-box tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.content-box tbody tr:hover {
+  background-color: #f0f0f0;
+}
+
+.content-box th:last-child,
+.content-box td:last-child {
+  border-right: 1px solid #ddd; /* Add border for the last column */
+}
+
+.content-footer {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 98.5%;
+  background-color: #fff; 
+  border-radius: 10px;
+  padding: 20px; 
+  height: 30vh;
+}
+
+.search-Billing {
+  width: 20vw;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.f_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.billing_search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.billing_search-icon {
+  margin-left: 10px;
+}
+
+.BT-con {
+  max-height: 20vh;
+  overflow-y: auto;
+}
+
+.BT-con table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.BT-con th,
+.BT-con td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center; /* Center align the text */
+}
+
+.BT-con th {
+  background-color: #f2f2f2;
+}
+
+.BT-con tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.BT-con tr:hover {
+  background-color: #f2f2f2;
+}
+
+.BT-con td:last-child {
+  text-align: center; /* Adjust text alignment for last column */
+}
+
+.BT-con th,
+.BT-con td:first-child,
+.BT-con td:last-child {
+  border-right: 1px solid #ddd; /* Add border for vertical lines */
+}
+
+.BT-con th:first-child,
+.BT-con td:first-child {
+  border-left: 1px solid #ddd; /* Add border for the first column */
+}
+
+@media (max-width: 768px) {
   .BT-con table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 16px;
-    margin-top: 10px;
-  }
-  
-  .BT-con th,
-  .BT-con td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .BT-con th {
-    background-color: #f2f2f2;
-  }
-  
-  .BT-con tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .BT-con tr:hover {
-    background-color: #f2f2f2;
-  }
-  
-  .BT-con td:last-child {
-    text-align: center;
-  }
-  
-  .BT-con th,
-  .BT-con td:first-child,
-  .BT-con td:last-child {
-    border-right: none;
-  }
-  
-  .BT-con th:first-child,
-  .BT-con td:first-child {
-    border-left: none;
-  }
-  
-  @media (max-width: 768px) {
-    .BT-con table {
       font-size: 14px;
-    }
   }
-  
+}
 
 @media (max-width: 768px) {
   .content-header {
-    flex-direction: column; /* Align items vertically */
-    align-items: flex-start; /* Align items to the start of the container */
+      flex-direction: column; /* Align items vertically */
+      align-items: flex-start; /* Align items to the start of the container */
   }
 
   .content-header h1 {
-    margin-bottom: 10px; /* Add spacing below the header */
+      margin-bottom: 10px; /* Add spacing below the header */
   }
 
   .content-header input[type="text"] {
-    width: 100%; /* Full width for the search bar */
-    max-width: none; /* Remove max-width for responsiveness */
+      width: 100%; /* Full width for the search bar */
+      max-width: none; /* Remove max-width for responsiveness */
   }
 
   .content-box,
   .content-footer {
-    margin-top: 20px; /* Add spacing between sections */
-  max-width: 80vw;
+      margin-top: 20px; /* Add spacing between sections */
+      max-width: 80vw;
   }
 
   .content-box,
   .content-footer,
   .main-content {
-    /* width: 90%; */
-    padding: 10px; /* Adjust padding for smaller screens */
-
+      padding: 10px; /* Adjust padding for smaller screens */
   }
 
   .content-box table,
   .BT-con table {
-    width: 100%;
-    
-    overflow-x: auto; /* Enable horizontal scrolling for tables */
+      width: 100%;
+      overflow-x: auto; /* Enable horizontal scrolling for tables */
   }
 
   .content-box th,
   .content-box td,
   .BT-con th,
   .BT-con td {
-    white-space: nowrap; /* Prevent line breaks in table cells */
+      white-space: nowrap; /* Prevent line breaks in table cells */
   }
 
   .BT-con td:last-child {
-    text-align: left; /* Adjust text alignment for last column in billing table */
+      text-align: left; /* Adjust text alignment for last column in billing table */
   }
 
-  .content-body{
-    display: flex;
-    flex-direction: column;
-    height: 30vh;
-    width: 90vw;
+  .content-body {
+      display: flex;
+      flex-direction: column;
+      height: 30vh;
+      width: 90vw;
   }
 
-  .first_ad{
-    display: none;
+  .first_ad {
+      display: none;
   }
 
-  .US-con{
-    height: 20vh;
+  .US-con {
+      height: 20vh;
   }
- 
-} 
+}

@@ -67,6 +67,8 @@ import ViewInvoice from './components/Pages/ViewInvoice';
 import Branch from './components/Pages/Branch';
 import PrivateRoute from './utils/PrivateRoute';
 import OwnerDashboard from './components/Pages/OwnerDashboard';
+import ErrorPage from './components/Pages/ErrorPage';
+import GlobalErrorPage from './components/Pages/GlobalErrorPage';
 
 function App() {
   const isLoggedIn = Cookies.get('loggedIn') === 'true';
@@ -88,7 +90,7 @@ function App() {
           <Route element={<PrivateRoute />}>
           {/* {sname && <Route path={`/${sname}`} element={<Branch />} />} */}
             <Route path="/:salon_name" element={<Branch />} />
-          <Route path="/:salon_name/owner" element={<OwnerDashboard />} />
+            <Route path="/:salon_name/owner" element={<OwnerDashboard />} />
             <Route path="/:salon_name/:branchName/dashboard" element={<AdminDashboard />} />
             <Route path="/:salon_name/:branchName/service" element={<ServiceDetails />} />
             <Route path="/:salon_name/:branchName/settings" element={<Settings />} />
@@ -98,6 +100,8 @@ function App() {
             <Route path="/:salon_name/:branchName/invoice" element={<Invoice />} />
             <Route path="/:salon_name/:branchName/viewinvoice/:id" element={<ViewInvoice />} />
           </Route>
+          <Route path="*" element={<ErrorPage/>} />
+          <Route path="/error" element={<GlobalErrorPage/>} />
         </Routes>
       </Router>
     </div>

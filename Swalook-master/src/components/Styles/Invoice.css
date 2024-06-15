@@ -9,6 +9,11 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+html, body {
+  height: 100%;
+
+}
+
 .invoice_container {
     display: flex;
     justify-content: center; /* Center horizontally */
